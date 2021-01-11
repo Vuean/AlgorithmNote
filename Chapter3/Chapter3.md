@@ -8,7 +8,7 @@
 
 ## 3.2 查找元素
 
-[codeuo 1934]()
+[codeup 1934](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter3/Chapter3/Sec2Example11934/main.cpp)
 
 ## 3.3 图形输出
 
@@ -17,12 +17,19 @@
 1. 通过规律，直接进行输出。
 2. 定义一个二维字符数组，通过规律填充之，然后输出整个二维数组。
 
-[PAT B1036]()
+[PAT B1036](https://github.com/Vuean/AlgorithmNote/tree/main/Chapter3/Chapter3/Sec3Example1B1036)
 
 ## 3.4 日期处理
 
-[codeup 1928]()
+[codeup 1928](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter3/Chapter3/Sec4Example11928/main.cpp)
 
 ## 3.5 进制转换
 
-[]()
+[PAT B1022]()
+
+## 3.6 字符串处理
+
+[codeup 5901]()
+
+[PAT B1009]()
+
