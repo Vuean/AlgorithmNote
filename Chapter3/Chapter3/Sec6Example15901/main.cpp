@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cstdio>
 #include <cstring>
 using namespace std;
@@ -18,8 +19,10 @@ bool judge(char str[])
 int main()
 {
 	char str[maxn];
-	while (fgets(str))
-	{
-
-	}
+	cin >> str;
+	bool flag = judge(str);
+	if (flag)
+		cout << "YES" << endl;
+	else
+		cout << "NO" << endl;
 }
