@@ -25,11 +25,8 @@
 
 ## 3.5 进制转换
 
-[PAT B1022]()
+[PAT B1022](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter3/Chapter3/Sec5Example1B1022/main.cpp)
 
 ## 3.6 字符串处理
 
-[codeup 5901]()
-
-[PAT B1009]()
-
+[codeup 5901](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter3/Chapter3/Sec6Example15901/main.cpp)
