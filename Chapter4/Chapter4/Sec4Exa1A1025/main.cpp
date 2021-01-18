@@ -1,10 +1,11 @@
 #include <iostream>
+#include <cstring>
 #include <algorithm>
 using namespace std;
 
 struct Student
 {
-	char	id[15];	// 准考证号
+	char	id[5];	// 准考证号
 	int		score;	// 分数
 	int		location_number;	// 考场号
 	int		local_rank;	// 考场内排名
@@ -12,15 +13,17 @@ struct Student
 
 bool cmp(Student a, Student b)
 {
-	if (a.score != b.score) return a.score > b.score;	// 先按分数从高到低排序
-	else return strcmp(a.id, b.id) < 0;	// 分数相同按准考证号从小到大排序
+	if (a.score != b.score) 
+		return a.score > b.score;	// 先按分数从高到低排序
+	else 
+		return strcmp(a.id, b.id) < 0;	// 分数相同按准考证号从小到大排序
 }
 
 int main()
 {
 	int N, num = 0;
 	cin >> N;
-	Student stu[30001];
+	Student stu[3000];
 	for (int i = 1; i <= N; i++)
 	{
 		int K;
@@ -33,15 +36,15 @@ int main()
 		}
 		sort(stu + num - K, stu + num, cmp);	// 将该考场的考生排序
 		stu[num - K].local_rank = 1;	// 该考场第1名记为1
-		for (int k = num - K + 1; k < num; k++)
+		for (int j = num - K + 1; j < num; j++)
 		{
-			if (stu[k].score == stu[k - 1].score)
+			if (stu[j].score == stu[j - 1].score)
 			{
-				stu[k].local_rank = stu[k - 1].local_rank;
+				stu[j].local_rank = stu[j - 1].local_rank;
 			}
 			else
 			{
-				stu[k].local_rank = k + 1 - (num - K);
+				stu[j].local_rank = j + 1 - (num - K);
 			}
 		}
 	}
