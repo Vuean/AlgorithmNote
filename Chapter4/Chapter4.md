@@ -177,9 +177,217 @@
 
 > 练习1：
 
-[练习2]()
+[练习2](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4/Sec4Exa2Hash/main.cpp)
 
 ## 4.3 递归
 
 ### 4.3.1 分治
+
+**分治**(**divide and conquer**)的全称为“分而治之”，也就是说，分治法将原问题划分成若干个规模较小而结构与原问题相同或相似的子问题，然后分别解决这些子问题，最后合并子问题的解，即可得到为原问题的解。上面的定义体现出分治法的三个步骤：
+
+1. **分解**：将原问题分解为若干和原问题拥有相同或相似结构的子问题；
+2. **解决**：递归求解所有子问题。如果存在子问题的规模小到可以直接解决，就直接解决它；
+3. **合并**：将子问题的解合并为原问题的解。
+
+需要指出的是，分治法分解出的子问题应当是相互独立、没有交叉的。如果存在两个子问题有相交部分，那么不应当使用分治法解决。
+
+分治法作为一种算法思想，既可以使用递归的手段去实现，也可以通过非递归的手段去实现，可以视具体情况而定，一般而言，通过递归实现比较容易。
+
+### 4.3.2 递归
+
+递归就在于反复调用自身函数，但是每次把问题范围缩小，直到范围缩小到可以直接得到边界数据的结果，然后再在返回的路上求出对应的解。从这点上看，递归很适合用来实现分治思想。
+
+递归的逻辑中一般有两个重要概念：
+
+1. 递归边界；
+2. 递归式（或称递归调用）。
+
+经典的例子：使用递归求解n的阶乘，则递归式可写成：`F(n)=F(n-1)*n`，而递归边界可设为：`F(0)=1`。
+
+> 代码示例:
+
+```C++
+    #include <iostream>
+    using namespace std;
+    int F(int n)
+    {
+        if(n == 0) return 1;
+        else return F(n-1) * n;
+    }
+
+    int main()
+    {
+        int N;
+        cin >> N;
+        cout << F(N) << endl;
+        return 0;
+    }
+```
+
+另一个经典例子：求Fibonacci数列的第n项。斐波那契数列的递归式可表示为：`F(n) = F(n-1) + F(n-2), (n≥2)`，递归边界为：`F(0) = 1`和`F(1) = 1`。
+
+> 代码示例:
+
+```C++
+    #include <iostream>
+    using namespace std;
+    int F(int n)
+    {
+        if(n == 0 || n == 1) return 1;
+        else return F(n-1) + F(n-2);
+    }
+
+    int main()
+    {
+        int N;
+        cin >> N;
+        cout << F(N) << endl;
+        return 0;
+    }
+```
+
+要实现递归，则必须要有递归边界和递归式，其中递归边界用来返回最简单底层的结果，递归式用来减少数据规模并向下一层递归。
+
+**全排列**(**Full Permutation**)。一般把1~n这n个整数按某个顺序摆放的结果称为这n个整数的一个排列，而**全排列指这n个整数能形成的所有排列**。
+
+从递归的角度去考虑，如果把问题描述成“输出1~n这n个整数的全排列”，那么它就可以被分为若干个子问题：“输出以1开头的全排列”“输出以2开头的全排列”“输出以3开头的全排列”...“输出以n开头的全排列”。于是不妨设定一个数组P，用来存放当前的排列；再设定一个散列数组`hashTable`，其中`hashTable[x]`当整数`x`已经在数组P中时为`true`。
+
+现在按顺序往P的第1位到第n位中填入数字。不妨假设当前已经填好了`P[1] ~ P[index-1]`，正准备填`P[index]`。显然需要枚举1~n，如果当前枚举的数字x还没有在`P[1] ~ P[index - 1]`中(即`hashTable[x] = false`)，那么就把它填入`P[index]`，同时将`hashTable[x]`置为true，然后去处理P的第`Index+1`位（即进行递归）；而当递归完成时，再将`hashTable[x]`还原为false，以便让`P[index]`填下一个数字。
+
+递归边界为，当`index`达到`n+1`时，说明P的第1 ~ n位都已经填好了，此时可以把数组P输出，表示生成了一个排列，然后直接`return`即可：
+
+> 代码示例:
+
+```C++
+    // 全排列(Full Permutation)
+    #include <iostream>
+    using namespace std;
+    const int maxn = 11;
+
+    // P为当前排列， hashTable记录整数x是否已经在P中
+    int n, P[maxn], hashTable[maxn] = { false };
+
+    // 当前处理排列的第index号位
+    void generateP(int index)
+    {
+        if (n + 1 == index)	// 递归边界，已处理完排列的1~n位
+        {
+            for (int i = 1; i <= n; i++)
+            {
+                cout << P[i] << ' ';
+            }
+            cout << endl;
+            return;
+        }
+        for (int x = 1; x <= n; x++)    // 枚举1~n，试图将x填入P[index]
+        {
+            if (false == hashTable[x])  // 如果x不在P[0]~P[index-1]中
+            {
+                P[index] = x;   // 令P的第index位位x，即把x加入当前排列
+                hashTable[x] = true;    // 记住x已在P中
+                generateP(index + 1);   // 处理排列的第index+1号位
+                hashTable[x] = false;   // 已处理完P [ index]为x 的子问题， 还原状态
+            }
+        }
+    }
+
+    int main()
+    {
+        n = 3;
+        generateP(1);   // 从P[1]开始填
+        return 0;
+    }
+```
+
+n皇后问题。n皇后问题是指在一个n*n的国际象棋棋盘上放置n个皇后，使
+得这n个皇后两两均不在同一行、同一列、同一条对角线上，求合法的方案数。
+
+对于这个问题，如果采用组合数的方式来枚举每一种情况（即从n^2个位置中选择n个位置），当n = 8时就是54502232次枚举，如果n更大，那么就会无法承受。
+
+但是换个思路，考虑到每行只能放置一个皇后、每列也只能放置一个皇后，那么如果把n列皇后所在的行号依次写出，那么就会是1 ~ n的一个排列。于是就只需要枚举1 ~ n的所有排列，查看每个排列对应的放置方案是否合法，统计其中合法的方案即可。由千总共有n!个排列，因此当n = 8时只需要40320次枚举，比之前的做法优秀许多。
+
+于是可以在全排列的代码基础上进行求解。由于当到达递归边界时表示生成了一个排列，所以需要在其内部判断是否为合法方案，即遍历每两个皇后，判断它们是否在同一条对角线上（不在同一行和同一列是显然的），若不是，则累计计数变器count即可。主要代码如下：
+
+> 代码示例:
+
+```C++
+    #include <iostream>
+    using namespace std;
+    const int maxn = 11;
+    int Count = 0;
+    int n, P[maxn], hashTable[maxn] = { false };
+
+    void generateP(int index)
+    {
+        if (index == n + 1) // 递归边界，生成一个排列
+        {
+            bool flag = true;   // flag为true表示当前排列为一个合法方案
+            for (int i = 1; i <= n; i++)    // 边离任意两个皇后
+            {
+                for (int j = i + 1; j <= n; j++)
+                {
+                    if(abs(i-j) == abs(P[i] - P[j]))    // 如果在一条对角线上
+                        flag = false;
+                }
+            }
+            if (flag) Count++;
+            return;
+        }
+        for (int x = 1; x <= n; x++)
+        {
+            if (hashTable[x] == false)
+            {
+                P[index] = x;
+                hashTable[x] = true;
+                generateP(index + 1);
+                hashTable[x] = false;
+            }
+        }
+    }
+```
+
+这种枚举所有情况，然后判断每一种情况是否合法的做法是非常朴素的（因此一般把不使用优化算法、直接用朴素算法来解决问题的做法称为**暴力法**）。
+
+一般来说，如果在到达递归边界前的某层，由于一些事实导致已经不需要往任何一个子问题递归，就可以直接返回上一层。一般把这种做法称为**回溯法**。下面的代码采用了回溯的写法：
+
+> 代码示例:
+
+```C++
+    // 回溯法
+    void generateP2(int index)
+    {
+        if (index == n + 1)// 递归边界， 生成一个合法方案
+        {
+            Count++;
+            return;
+        }
+        for (int x = 1; x <= n; x++)    // 第x行
+        {
+            if (hashTable[x] == false)  // 如果第x行没有皇后
+            {
+                bool flag = true;   //flag 为true 表示当前皇后不会和之前的皇后冲突
+                for (int pre = 1; pre < index; pre++)   // 遍历之前的皇后
+                {
+                    // 第index列皇后的行号为X , 第pre 列皇后的行号为P[pre]
+                    if (abs(index - pre) == abs(x - P[pre]))
+                    {
+                        flag = false;   // 与之前的皇后在一条对角线， 冲突
+                        break;
+                    }
+                }
+                if (flag)   // 如果可以把皇后放在第x 行
+                {
+                    P[index] = x;   // 令第index 列皇后的行号为x
+                    hashTable[x] = true;    // 第x 行已被占用
+                    generateP2(index + 1);  // 递归处理第index+l 行皇后
+                    hashTable[x] = false;   // 递归完毕，还原第x行为未占用
+                }
+            }
+        }
+    }
+```
+
+## 4.4 贪心
+
+### 4.4.1 简单贪心
 
