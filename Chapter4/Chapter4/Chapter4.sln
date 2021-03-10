@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exa4NQueen", "Sec4Exa4N
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exa5MoonCake", "Sec4Exa5MoonCake\Sec4Exa5MoonCake.vcxproj", "{029A7001-1F0A-42FE-ACC5-078B77B487F1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exa6MinNum", "Sec4Exa6MinNum\Sec4Exa6MinNum.vcxproj", "{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{029A7001-1F0A-42FE-ACC5-078B77B487F1}.Release|x64.Build.0 = Release|x64
 		{029A7001-1F0A-42FE-ACC5-078B77B487F1}.Release|x86.ActiveCfg = Release|Win32
 		{029A7001-1F0A-42FE-ACC5-078B77B487F1}.Release|x86.Build.0 = Release|Win32
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Debug|x64.ActiveCfg = Debug|x64
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Debug|x64.Build.0 = Debug|x64
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Debug|x86.ActiveCfg = Debug|Win32
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Debug|x86.Build.0 = Debug|Win32
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Release|x64.ActiveCfg = Release|x64
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Release|x64.Build.0 = Release|x64
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Release|x86.ActiveCfg = Release|Win32
+		{FDF5C789-B2E1-4AF6-BF75-B5B36C311929}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

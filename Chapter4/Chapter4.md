@@ -401,4 +401,5 @@ n皇后问题。n皇后问题是指在一个n*n的国际象棋棋盘上放置n�
 
 > PATB1023 组个最小数：
 
-[PATB1023](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4/Sec4Exa5MoonCake/main.cpp)
+[PATB1023](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4/Sec4Exa6MinNum/main.cpp)
+
