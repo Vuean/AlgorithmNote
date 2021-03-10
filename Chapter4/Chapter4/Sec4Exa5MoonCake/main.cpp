@@ -36,9 +36,23 @@ int main()
 		cake[i].price = cake[i].sell / cake[i].store;
 	}
 	
+	sort(cake, cake+n, cmp);
 	
+	double ans = 0.0; //  ’“Ê
+
 	for (int i = 0; i < n; i++)
 	{
-		cout << cake[i].price << endl;
+		if (cake[i].store <= D)
+		{
+			ans += cake[i].sell;
+			D -= cake[i].store;
+		}
+		else
+		{
+			ans += cake[i].price * D;
+			break;
+		}
 	}
+
+	printf("%.2f\n", ans);
 }
