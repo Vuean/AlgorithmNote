@@ -413,4 +413,5 @@ n皇后问题。n皇后问题是指在一个n*n的国际象棋棋盘上放置n�
 
 > N开区间：
 
-[N开区间]()
+[N开区间](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4/Sec4Exa7NOpenInterval/main.cpp)
+
