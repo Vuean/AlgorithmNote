@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chapter4Exe", "Chapter4Exe.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exe1FillOrNot", "Sec4Exe1FillOrNot\Sec4Exe1FillOrNot.vcxproj", "{25A2CD22-13B8-4D23-AEA0-EB09125D4AFD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exe2MagicCoupon", "Sec4Exe2MagicCoupon\Sec4Exe2MagicCoupon.vcxproj", "{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{25A2CD22-13B8-4D23-AEA0-EB09125D4AFD}.Release|x64.Build.0 = Release|x64
 		{25A2CD22-13B8-4D23-AEA0-EB09125D4AFD}.Release|x86.ActiveCfg = Release|Win32
 		{25A2CD22-13B8-4D23-AEA0-EB09125D4AFD}.Release|x86.Build.0 = Release|Win32
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Debug|x64.ActiveCfg = Debug|x64
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Debug|x64.Build.0 = Debug|x64
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Debug|x86.ActiveCfg = Debug|Win32
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Debug|x86.Build.0 = Debug|Win32
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Release|x64.ActiveCfg = Release|x64
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Release|x64.Build.0 = Release|x64
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Release|x86.ActiveCfg = Release|Win32
+		{9C6AE20D-DAFE-4F69-9FC6-03CE4C53B578}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
