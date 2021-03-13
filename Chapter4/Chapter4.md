@@ -421,8 +421,8 @@ n皇后问题。n皇后问题是指在一个n*n的国际象棋棋盘上放置n�
 
 > A1033. To Fill or Not to Fill
 
-[A1033](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Chapter4Exe/Sec4Exe1FillOrNot/main.cpp)
+[A1033](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec4Exe1FillOrNot/main.cpp)
 
 > A1037. Magic Coupon
 
-[A1037]()
+[A1037](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec4Exe2MagicCoupon/main.cpp)
