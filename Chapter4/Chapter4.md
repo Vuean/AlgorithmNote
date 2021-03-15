@@ -426,3 +426,15 @@ n皇后问题。n皇后问题是指在一个n*n的国际象棋棋盘上放置n�
 > A1037. Magic Coupon
 
 [A1037](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec4Exe2MagicCoupon/main.cpp)
+
+## 4.5 二分
+
+### 4.5.1 二分查找
+
+二分查找是基于**有序序列**的查找算法。
+
+> 猜数字
+
+[猜数字](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec4Exe2MagicCoupon/main.cpp)
+
+### 4.5.2 二分法拓展
