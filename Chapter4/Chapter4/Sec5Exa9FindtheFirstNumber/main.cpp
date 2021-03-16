@@ -43,3 +43,8 @@ int upper_bound(int A[], int left, int right, int x)
 	}
 	return left;
 }
+
+int main()
+{
+
+}
