@@ -541,19 +541,19 @@ n皇后问题。n皇后问题是指在一个n*n的国际象棋棋盘上放置n�
 
 > A1030/A1085. 完美数列
 
-[完美数列]()
+[完美数列](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec5Exe1PerfectFunction/main.cpp)
 
 > A1010. Radix
 
-[A1010]()
+[A1010](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec5Exe2Radix/main.cpp)
 
 > A1044. Shopping in Mars
 
-[A1044]()
+[A1044](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec5Exe3ShoopinginMars/main.cpp)
 
 > A1048. Find Coins
 
-[A1048]()
+[A1048](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4Exe/Sec5Exe4FindCoins/main.cpp)
 
 ## 4.6 two pointers
 
