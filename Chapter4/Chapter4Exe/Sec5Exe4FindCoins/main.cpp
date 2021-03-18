@@ -34,7 +34,7 @@ int main()
 	}
 	sort(a, a + n);
 
-	for (int i = 0; i < n; i++)
+	for (i = 0; i < n; i++)
 	{
 		int pos = Bin(0, n - 1, m - a[i]);
 		if (pos != -1 && i != pos)	// ÕÒµ½
