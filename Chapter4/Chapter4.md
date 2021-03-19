@@ -630,3 +630,73 @@ two p ointers将利用有序序列的枚举特性来有效降低复杂度。算�
 
 ### 4.6.2 归并排序
 
+归并排序是一种基于“归并”思想的排序方法，本节主要介绍其中最基本的2-路归并排序。2-路归并排序的原理是，将序列两两分组，将序列归并为片n/2个组，组内单独排序；然后将这些组再两两归并，生成归n/4个组，组内再单独排序；以此类推，直到只剩下一个组为止。归并排序的时间复杂度为O(nlogn)。
+
+2-路归并排序的核心在于如何将两个有序序列合并为一个有序序列，常用方法有递归实现和非递归实现。
+
+1. 递归实现
+
+```C++
+    const int maxn = 100;
+    // 将数组A的[L1, R2]与[L2, R2]区间合并为有序区间
+    void merge(int A[], int L1, int R1, int L2, int R2){
+        int i = L1, j = L2; // i指向A[L1], j指向A[L2]
+        int temp[maxn], index = 0;  // temp存放合并后的数组，index为其下标
+        while(i <= R1 && j <= R2)
+        {
+            if(A[i] <= A[j])
+            {
+                temp[index++] = A[i++];
+            }
+            else
+            {
+                temp[index++] = A[j++];
+            }
+        }
+        while(i <= R1) temp[index++] = A[i++];
+        while(j <= R2) temp[index++] = A[j++];
+        for(int i = 0; i < index; i++)
+        {
+            A[L1+i] = temp[i];
+        }
+    }
+
+    void mergeSort(int A[], int left, int right)
+    {
+        if(left < right)
+        {
+            int mid = (left + right) / 2;
+            mergeSort(A, left, mid);
+            mergeSort(A, mid+1, right);
+            merge(A, left, mid, mid+1, right);
+        }
+    }
+```
+
+2. 非递归实现
+
+2-路归并排序的非递归实现主要考虑到这样一点：每次分组时组内元素个数上限都是2的幂次。于是就可以想到这样的思路：令步长step的初值为2，然后将数组中每step个元素作为一组，将其内部进行排序（即把左step / 2个元素与右step /2个元素合并，而若元素个数不超过step / 2，则不操作）；再令step乘以2，重复上面的操作，直到step / 2超过元素个数n（结合代码想一想为什么此处是step / 2)。
+
+```C++
+    void mergeSort(int A[])
+    {
+        // step为组内元素个数，step/2为左子区间元素个数，注意等号可以不取
+        for(int step = 2; step / 2 <= n; step *= 2)
+        {
+            // 每step个元素一组，组内前step/2和后step/2个元素合并
+            for(int i = 1; i <= n; i += step)
+            {
+                // 对每一组
+                int mid = i + step / 2 - 1; // 左子区间元素个数为step/2
+                if(mid + 1 <= n)    // 右子区间存在元素则合并
+                {
+                    // 左子区间为[i, mid]，右子区间为[mid+1, min(i+step-1, n)]
+                    merge(A, i, mid, mid+1, min(i+step-1, n));
+                }
+            }
+        }
+    }
+```
+
+### 4.6.3 快速排序
+

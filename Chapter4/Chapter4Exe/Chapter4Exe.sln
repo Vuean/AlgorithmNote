@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec5Exe4FindCoins", "Sec5Ex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec6Exe1PerfectFunction", "Sec6Exe1PerfectFunction\Sec6Exe1PerfectFunction.vcxproj", "{6495C18B-2049-4E10-AF14-422489C11ECC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec6Exe2InsertOrMerge", "Sec6Exe2InsertOrMerge\Sec6Exe2InsertOrMerge.vcxproj", "{48C8711D-1753-44A0-94A5-C6A93D767E0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{6495C18B-2049-4E10-AF14-422489C11ECC}.Release|x64.Build.0 = Release|x64
 		{6495C18B-2049-4E10-AF14-422489C11ECC}.Release|x86.ActiveCfg = Release|Win32
 		{6495C18B-2049-4E10-AF14-422489C11ECC}.Release|x86.Build.0 = Release|Win32
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Debug|x64.ActiveCfg = Debug|x64
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Debug|x64.Build.0 = Debug|x64
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Debug|x86.ActiveCfg = Debug|Win32
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Debug|x86.Build.0 = Debug|Win32
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Release|x64.ActiveCfg = Release|x64
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Release|x64.Build.0 = Release|x64
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Release|x86.ActiveCfg = Release|Win32
+		{48C8711D-1753-44A0-94A5-C6A93D767E0D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
