@@ -828,4 +828,4 @@ two p ointers将利用有序序列的枚举特性来有效降低复杂度。算�
 
 > 集合差
 
-[集合差]()
+[集合差](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter4/Chapter4/Sec7Exa2RandSelect/main.cpp)

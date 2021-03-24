@@ -8,3 +8,5 @@
 [第三章 入门篇(1)——入门模拟](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter3/Chapter3.md)
 
 [第四章 入门篇(2)——算法](https://github.com/Vuean/AlgorithmNote/tree/main/Chapter4.md)
+
+[第五章 入门篇(3)——数学问题]()
