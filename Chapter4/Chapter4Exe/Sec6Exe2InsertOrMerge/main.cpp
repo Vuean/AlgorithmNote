@@ -46,7 +46,7 @@ bool insertSort()
 		}
 		// 以下为插入部分
 		int temp = tempOri[i], j = i;
-		while (j > 0 && tempOri[j - i] > temp)
+		while (j > 0 && tempOri[j - 1] > temp)
 		{
 			tempOri[j] = tempOri[j - i];
 			j--;
