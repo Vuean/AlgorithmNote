@@ -9,4 +9,4 @@
 
 [第四章 入门篇(2)——算法](https://github.com/Vuean/AlgorithmNote/tree/main/Chapter4.md)
 
-[第五章 入门篇(3)——数学问题]()
+[第五章 入门篇(3)——数学问题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter5/README.md)
