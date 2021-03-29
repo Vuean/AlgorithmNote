@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chapter5", "Chapter5.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec1Exa1DigitalBlackHole", "Sec1Exa1DigitalBlackHole\Sec1Exa1DigitalBlackHole.vcxproj", "{D8566751-017C-42DA-AD9B-D436B2F14484}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec2Exa1GreatestCommonDivisor", "Sec2Exa1GreatestCommonDivisor\Sec2Exa1GreatestCommonDivisor.vcxproj", "{C31E83F3-1DC7-45DE-A518-31081E1217E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{D8566751-017C-42DA-AD9B-D436B2F14484}.Release|x64.Build.0 = Release|x64
 		{D8566751-017C-42DA-AD9B-D436B2F14484}.Release|x86.ActiveCfg = Release|Win32
 		{D8566751-017C-42DA-AD9B-D436B2F14484}.Release|x86.Build.0 = Release|Win32
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Debug|x64.ActiveCfg = Debug|x64
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Debug|x64.Build.0 = Debug|x64
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Debug|x86.ActiveCfg = Debug|Win32
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Debug|x86.Build.0 = Debug|Win32
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Release|x64.ActiveCfg = Release|x64
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Release|x64.Build.0 = Release|x64
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Release|x86.ActiveCfg = Release|Win32
+		{C31E83F3-1DC7-45DE-A518-31081E1217E8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
