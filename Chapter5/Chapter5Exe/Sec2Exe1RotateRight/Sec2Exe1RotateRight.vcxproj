@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{E16E3C11-F21A-4E1C-9302-8F8CD4367DCA}</ProjectGuid>
-    <RootNamespace>Sec1Exe5CountingOnes</RootNamespace>
+    <ProjectGuid>{79B87A9B-B822-4D73-8ED5-A35277F71128}</ProjectGuid>
+    <RootNamespace>Sec2Exe1RotateRight</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
