@@ -17,6 +17,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec1Exe5CountingOnes", "Sec
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec2Exe1RotateRight", "Sec2Exe1RotateRight\Sec2Exe1RotateRight.vcxproj", "{79B87A9B-B822-4D73-8ED5-A35277F71128}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe1RationalSum", "Sec3Exe1RationalSum\Sec3Exe1RationalSum.vcxproj", "{19138E0E-AB1D-45DB-B406-B30E57045D88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe2Arithmetic", "Sec3Exe2Arithmetic\Sec3Exe2Arithmetic.vcxproj", "{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +85,22 @@ Global
 		{79B87A9B-B822-4D73-8ED5-A35277F71128}.Release|x64.Build.0 = Release|x64
 		{79B87A9B-B822-4D73-8ED5-A35277F71128}.Release|x86.ActiveCfg = Release|Win32
 		{79B87A9B-B822-4D73-8ED5-A35277F71128}.Release|x86.Build.0 = Release|Win32
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Debug|x64.ActiveCfg = Debug|x64
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Debug|x64.Build.0 = Debug|x64
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Debug|x86.ActiveCfg = Debug|Win32
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Debug|x86.Build.0 = Debug|Win32
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Release|x64.ActiveCfg = Release|x64
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Release|x64.Build.0 = Release|x64
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Release|x86.ActiveCfg = Release|Win32
+		{19138E0E-AB1D-45DB-B406-B30E57045D88}.Release|x86.Build.0 = Release|Win32
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Debug|x64.ActiveCfg = Debug|x64
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Debug|x64.Build.0 = Debug|x64
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Debug|x86.ActiveCfg = Debug|Win32
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Debug|x86.Build.0 = Debug|Win32
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Release|x64.ActiveCfg = Release|x64
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Release|x64.Build.0 = Release|x64
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Release|x86.ActiveCfg = Release|Win32
+		{BFD180BF-5147-47F7-9DC0-BE3DB3694DE3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
