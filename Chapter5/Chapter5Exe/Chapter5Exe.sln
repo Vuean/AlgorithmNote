@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exe2NumberOfPrimes", "S
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exe3ReversiblePrimes", "Sec4Exe3ReversiblePrimes\Sec4Exe3ReversiblePrimes.vcxproj", "{E3F60939-957A-4D45-BBEF-27FF7E2DBA03}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exe4Hashing", "Sec4Exe4Hashing\Sec4Exe4Hashing.vcxproj", "{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -131,6 +133,14 @@ Global
 		{E3F60939-957A-4D45-BBEF-27FF7E2DBA03}.Release|x64.Build.0 = Release|x64
 		{E3F60939-957A-4D45-BBEF-27FF7E2DBA03}.Release|x86.ActiveCfg = Release|Win32
 		{E3F60939-957A-4D45-BBEF-27FF7E2DBA03}.Release|x86.Build.0 = Release|Win32
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Debug|x64.ActiveCfg = Debug|x64
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Debug|x64.Build.0 = Debug|x64
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Debug|x86.ActiveCfg = Debug|Win32
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Debug|x86.Build.0 = Debug|Win32
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Release|x64.ActiveCfg = Release|x64
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Release|x64.Build.0 = Release|x64
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Release|x86.ActiveCfg = Release|Win32
+		{264BFD55-5BD6-4AF9-9E6C-C0136E6AB5F7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
