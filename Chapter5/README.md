@@ -267,3 +267,200 @@
 ## 5.6 大整数运算
 
 ### 5.6.1 大整数的存储
+
+大整数的存储很简单，使用数组即可。例如定义in 型数组d[1000]，那么这个数组中的每一位就代表了存放的整数的每一位，且整数的高位存储在数组的高位。
+
+为了方便随时获取大整数的长度，一般都会定义一个int型变量len来记录其长度，并和d数组组合成结构体：
+
+```C++
+    struct bign{
+        int d[1000];
+        int len;
+
+        // 初始化
+        bign(){
+            memset(d, 0, sizeof(d));
+            len = 0;
+        }
+    };
+```
+
+输入大整数时，一般都是先用字符串读入，然后再把字符串另存为至bign结构体。由于使用char数组进行读入时，整数的高位会变成数组的低位，而整数的低位会变成数组的高位，因此为了让整数在bign中是顺位存储，需要让字符串倒着赋给d[]数组：
+
+```C++
+    bign change(char str[]){    // 将整数转换为bign
+        bign a;
+        a.len = strlen(str);    // bign的长度就是字符串的长度
+        for(int i = 0; i < a.len; i++){
+            a.d[i] = str[a.len - i - 1] - '0';
+        }
+        return a;
+    }
+```
+
+比较两个bign变量的大小，规则也很简单：先判断两者的len大小，如果不相等，则以长的为大；如果相等，则从高位到低位进行比较，直到出现某一位不等，就可以判断两个数的大小。下面的代码直接依照了这个规则：
+
+```C++
+    int compare(bign a, bign b){
+        if(a.len > b.len) return 1;
+        else if(a.len < b.len) return -1;
+        else{
+            for(int i = a.len-1; i>= 0; i--){
+                if(a.d[i] > b.d[i]) return 1;
+                else if(a.d[i] < b.d[i]) return -1
+            }
+        }
+        return 0;   // 两者相等
+    }
+```
+
+接下来主要介绍四个运算：1.高精度加法，2.高精度减法，3.高精度与低精度的乘法，4.高精度与低精度的除法。
+
+### 5.6.2 大整数的四则运算
+
+1. 高精度加法
+
+    将该位上的两个数字和进位相加，得到的结果取个位数作为该位结果，取十位数作为新的进位：
+
+    ```C++
+        bign add(bign a, bign b){
+            bign c;
+            int carry = 0;
+            for(int i = 0; i < a.len || a < b.len; i++){
+                int temp = a.d[i] + b.d[i] + carry;
+                c.d[c.len++] = temp % 10;
+                carry = temp / 10;
+            }
+            if(carry != 0){
+                // 如果最后进位不为0,则直接赋给结果的最高位
+                c.d[c.len++] = carry;
+            }
+            return c;
+        }
+    ```
+
+    下面是完整的A + B 的代码：
+
+    ```C++
+        #include <cstdio>
+        #include <string>
+        struct bign{
+            int d[1000];
+            int len;
+            bign(){
+                memset(d, 0, sizeof(d));
+                len = 0;
+            }
+        };
+
+        bign change(char str[]){
+            bign a;
+            a.len = strlen(str);
+            for(int i = 0; i < a.len; i++){
+                a.d[i] = str[a.len-i-1] - '0';
+            }
+            return a;
+        }
+
+        bign add(bign a, bign b){
+            bign c;
+            int carry = 0;
+            for(int i = 0; i < a.len || a < b.len; i++){
+                int temp = a.d[i] + b.d[i] + carry;
+                c.d[c.len++] = temp % 10;
+                carry = temp / 10;
+            }
+            if(carry != 0){
+                c.d[c.len++] = carry;
+            }
+            return c;
+        }
+
+        void print(bign a){
+            for(int i = a.len - 1; i >= 0; i--){
+                cout << a.d[i];
+            }
+        }
+
+        int main()
+        {
+            char str1[1000], str2[1000];
+            cin >> str1 >> str2;
+            bign a = change(str1);
+            bign b = change(str2);
+            print(add(a, b));
+        }
+    ```
+
+2. 高精度减法
+
+    对某一步，比较被减位和减位，如果不够减，则令被减位的高位减1、被减位加10再进行减法；如果够减，则直接减。最后一步要注意减法后高位可能有多余的0，要忽视它们，但也要保证结果至少有一位数。
+
+    ```C++
+        bign sub(bign a, bign b){
+            bign c;
+            for(int i = 0; i < a.len || i < b.len; i++){
+                if(a.d[i] < b.d[i]){
+                    a.d[i+1]--;
+                    a.d[i] += 10;
+                }
+                c.d[c.len++] = a.d[i] - b.d[i];
+            }
+            while(c.len - 1 >= 1 && c.d[len-1] == 0){
+                c.len--;    // 去除高位的0，同事至少保留一位最低位
+            }
+            return c;
+        }
+    ```
+
+    需要指出，使用sub函数前要比较两个数的大小，如果被减数小于减数，需要交换两个变量，然后输出负号，再使用sub函数。
+
+3. 高精度与低精度的乘法
+
+    取bign的某位与int型整体相乘，再与进位相加，所得结果的个位数作为该位结果，高位部分作为新的进位。
+
+    ```C++
+        bign multi(bign a, int b){
+            bign c;
+            int carry = 0;  // 进位
+            for(int i = 0; i < a.len; i++){
+                int temp = a.d[i] * b + carry;
+                c.d[c.len++] = temp % 10;
+                carry = temp / 10;
+            }
+            while(carry != 0){
+                c.d[c.len++] = carry % 10;
+                carry /= 10;
+            }
+            return c;
+        }
+    ```
+
+    如果a和b中存在负数，需要先记录下其负号，然后取它们的绝对值代入函数。
+
+4. 高精度与低精度的除法
+
+    上一步的余数乘以10加上该步的位，得到该步临时的被除数，将其与除数比较：如果不够除，则该位的商为0；如果够除，则商即为对应的商，余数即为对应的余数。最后一步要注意减法后高位可能有多余的0，要忽视它们，但也要保证结果至少有一位数。
+
+    ```C++
+        bign divide(bign a, int b, int& r){ // r为余数
+            bign c;
+            // 被除数的每一位和商的每一位是一一对应的，因此先令长度相等
+            c.len = a.len;
+            for(int i = a.len - 1; i>= 0; i--){
+                r = r * 10 + a.d[i];
+                if(r < b) c.d[i] = 0;
+                else {
+                    c.d[i] = r / b;
+                    r = r % b;
+                }
+            }
+            while(c.len - 1 >= 1 && c.d[len-1] == 0){
+                // 去除高位的0，同时至少保留一位最低位
+                c.len--;
+            }
+            return c;
+        }
+    ```
+
+## 5.7 扩展欧几里得算法
