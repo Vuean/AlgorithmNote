@@ -262,7 +262,7 @@
         }
     ```
 
-[A1059]()
+[A1059](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter5/Chapter5/Sec5Exa1PrimeFactors/main.cpp)
 
 ## 5.6 大整数运算
 
