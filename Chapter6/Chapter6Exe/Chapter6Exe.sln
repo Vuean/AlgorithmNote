@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec1Exe2StudentForCourse", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec2Exe1SetSimilarity", "Sec2Exe1SetSimilarity\Sec2Exe1SetSimilarity.vcxproj", "{F319807E-8B61-499F-B9AE-15CA67E45977}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe1AreTheyEqual", "Sec3Exe1AreTheyEqual\Sec3Exe1AreTheyEqual.vcxproj", "{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{F319807E-8B61-499F-B9AE-15CA67E45977}.Release|x64.Build.0 = Release|x64
 		{F319807E-8B61-499F-B9AE-15CA67E45977}.Release|x86.ActiveCfg = Release|Win32
 		{F319807E-8B61-499F-B9AE-15CA67E45977}.Release|x86.Build.0 = Release|Win32
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Debug|x64.ActiveCfg = Debug|x64
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Debug|x64.Build.0 = Debug|x64
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Debug|x86.Build.0 = Debug|Win32
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Release|x64.ActiveCfg = Release|x64
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Release|x64.Build.0 = Release|x64
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Release|x86.ActiveCfg = Release|Win32
+		{BD0F34FF-3B18-4AB8-BF2C-6700374F936A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
