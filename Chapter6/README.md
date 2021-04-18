@@ -307,3 +307,40 @@ pair中只有两个元素，分别是first和second，只需要按正常结构�
 `swap(x, y)`用来交换x和y的值。
 
 ### 6.9.3 reverse()
+
+`reverse(it, it2)`可以将数组指针在[it, it2)之间的元素或容器的迭代器在[it, it2)范围内的元素进行反转。
+
+### 6.9.4 next_permutation()
+
+`next_permutation()`给出一个序列在全排列中的下一个序列。
+
+```C++
+    当n==3时的全排序列为：
+    123
+    132
+    213
+    231
+    312
+    321
+```
+
+这样231的下一个序列就是312。
+
+```C++
+    #include <cstdio>
+    #include <algorithm>
+    using namespace std;
+    int main(){
+        int a[10] = {1, 2, 3};
+        do{
+            printf("%d%d%d\n", a[0], a[1], a[2]);
+        }while(next_permutation(a, a+3));
+    }
+```
+
+使用do … while语句而不使用while语句是因为序列1 2 3本身也需要输出，如果使用while会直接跳到下一个序列再输出，这样结果会少一个123。
+
+### 6.9.5 fill()
+
+fill()可以把数组或容器中的某一段区间赋为某个相同的值。和memset不同，这里的赋值可以是**数组类型对应范围中的任意值**。
+
