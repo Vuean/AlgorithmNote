@@ -1,4 +1,5 @@
 # AlgorithmNote
+
 《算法笔记》
 
 [第一章 如何使用本书](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter1/Chapter1.md)
@@ -10,3 +11,7 @@
 [第四章 入门篇(2)——算法](https://github.com/Vuean/AlgorithmNote/tree/main/Chapter4.md)
 
 [第五章 入门篇(3)——数学问题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter5/README.md)
+
+[第6章 C++标准模板库(STL)介绍](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter6/README.md)
+
+[第七章 提高篇(1)——数据结构专题(1)](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter7/README.md)
