@@ -140,3 +140,115 @@ STL中没有实现栈的清空，所以如果需要实现栈的清空，可以�
 ### 7.3.3 链表的基本操作
 
 1. 创建列表
+
+    通常利用循环来建立需要的链表：
+
+    ```C++
+        #include <cstdio>
+        #include <cstdlib>
+
+        struct node{
+            int data;
+            node* next;
+        };
+
+        node* create(int Array[]){
+            node *p, *pre, *head;   // pre保存前驱，head为头结点
+            head = new node;
+            head->next = NULL;
+            pre = head;
+            for(int i = 0; i < 5; i++){
+                p = new node;
+                p->data = Array[i];
+                p->next = NULL; // 新结点的指针域设为NULL
+                pre->next = p;  // 前驱结点的指针域设为当前新建结点的地址
+                pre = p;        // 把pre设为p, 作为下个结点的前驱结点
+            }
+            return head;
+        }
+
+        int main()
+        {
+            int Array[5] = {5, 3, 6, 1, 2};
+            node* L = create(Array);
+            L = L->next;    // 从第一个结点开始有数据域
+            while(L != NULL){
+                printf("%d", L->data);
+                L = L->next;
+            }
+        }
+    ```
+
+2. 查找元素
+
+    从第一个结点开始，不断判断当前结点的数据域是否等于x，如果等于，那么就给计数器count加1。这样当到达链表结尾时，count的值就是链表中元素x的个数。
+
+    ```C++
+        // 在以head为头结点的链表上计数元素x的个数
+        int search(node* head, int x){
+            int count = 0;
+            node* p = head->next;
+            while(p != NULL){
+                if(p->data == x){
+                    count++;
+                }
+                p = p->next;
+            }
+            return count;
+        }
+    ```
+
+3. 插入元素
+
+    对链表来说，插入元素是指在链表给定位置的地方插入一个结点。
+
+    ```C++
+        // 将x插入以head为头结点的链表的第pos个位置上
+        void insert(node* head, int pos, int x){
+            node* p = head->next;
+            for(int i = 0; i < pos-1; i++){
+                p = p->next;
+            }
+            node* q = new node;
+            q->data = x;
+            q->next = p->next;
+            p->next = q;
+        }
+    ```
+
+4. 删除元素
+
+    对链表来说，删除元素是指删除链表上所有值为给定的数x。
+
+    ```C++
+        // 删除以head为头结点的链表中所有数据域为x的结点
+        void del(node* head, int x){
+            node* p = head->next;
+            node* pre = head;
+            while(p!= NULL){
+                if(p->data == x){
+                    pre->next = p->next;
+                    delete p;
+                    p = pre->next;
+                }else{
+                    pre = p;
+                    p = p->next;
+                }
+            }
+        }
+    ```
+
+7.3.4 静态链表
+
+前面讲解的都是动态链表，即需要指针来建立结点之间的连接关系。而对有些问题来说，结点的地址是比较小的整数（例如5位数的地址），这样就没有必要去建立动态链表，而应使用方便得多的静态链表。
+
+静态链表的实现原理是hash，即通过建立一个结构体数组，并令数组的下标直接表示结点的地址，来达到直接访问数组中的元素就能访问结点的效果。另外，由于结点的访问非常方便，因此静态链表是不需要头结点的。静态链表结点定义的方法如下：
+
+```C++
+    struct Node{
+        typename data;  // 数据域
+        int next;       // 指针域
+    }node[size];
+```
+
+next是一个int型的整数，用以存放下一个结点的地址（事实上就是数组下标）。
