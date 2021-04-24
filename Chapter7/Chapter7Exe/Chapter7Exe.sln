@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe2Sharing", "Sec3Exe2
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe3LinkedListSorting", "Sec3Exe3LinkedListSorting\Sec3Exe3LinkedListSorting.vcxproj", "{03D4C8B3-3F16-4AB8-A643-78D2656C6B4C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe4DeduplicationOnALinkedList", "Sec3Exe4DeduplicationOnALinkedList\Sec3Exe4DeduplicationOnALinkedList.vcxproj", "{90CD1785-FDC7-4608-84F6-D12CE35451DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{03D4C8B3-3F16-4AB8-A643-78D2656C6B4C}.Release|x64.Build.0 = Release|x64
 		{03D4C8B3-3F16-4AB8-A643-78D2656C6B4C}.Release|x86.ActiveCfg = Release|Win32
 		{03D4C8B3-3F16-4AB8-A643-78D2656C6B4C}.Release|x86.Build.0 = Release|Win32
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Debug|x64.ActiveCfg = Debug|x64
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Debug|x64.Build.0 = Debug|x64
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Debug|x86.ActiveCfg = Debug|Win32
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Debug|x86.Build.0 = Debug|Win32
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Release|x64.ActiveCfg = Release|x64
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Release|x64.Build.0 = Release|x64
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Release|x86.ActiveCfg = Release|Win32
+		{90CD1785-FDC7-4608-84F6-D12CE35451DD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
