@@ -97,3 +97,169 @@
 在上述代码的基础上只需要稍作修改，由于每个整数都可以被选择多次，因此当选择了index号数时，不应该直接进入index+1号数的处理。显然，应当能够继续选择index号数，直到某个时刻决定不再选择index号数，就会通过“不选index号数”这条分支进入index+1号数的处理。因此只需要把“选index号数”这条分支的代码修改为DFS(index, nowK + 1, nums + A[index], sumSqu + A[index] * A[index])即可。
 
 ## 8.2 广度优先搜索(BFS)
+
+广度优先搜索(BFS)一般由队列实现，且总是按层次的顺序进行遍历，其基本写法如下（可作模板用）：
+
+```C++
+    void BFS(int s){
+        queue<int> q;
+        q.push(s);
+        while(!q.empty()){
+            取出队首元素top;
+            访问队首元素top;
+            将队首元素出队;
+            将top的下一层结点中未曾入队的结点全部入队，并设置为己入队;
+        }
+    }
+```
+
+具体说明如下：
+
+1. 定义队列q，并将起点s入队；
+2. 写一个while循环，循环条件是队列q非空；
+3. 在while循环中，先取出队首元素top，然后访问它（访问可以是任何事情，例如将其输出）。访问完后将其出队；
+4. 将top的下一层节点中所有未曾入队的结点入队，并标记它们的层号为now的层号加1，同时设置这些入队的结点已入过队。
+5. 重复步骤2。
+
+例题1：给出一个m x n的矩阵，矩阵中的元素为0或1。称位置(x, y)与其上下左右四个位置(x, y+1)、(x, y-1)、(x+1 , y)、(x-1, y)是相邻的。如果矩阵中有若干个1是相邻的（不必两两相邻），那么称这些1构成了一个“块”。求给定的矩阵中“块”的个数。
+
+```C++
+    #include <cstdio>
+    #include <queue>
+    using namespace std;
+
+    const int maxn = 100;
+    struct node {
+        int x, y;
+    }Node;
+
+    int n, m;   // 矩阵大小为n*m
+    int matrix[maxn][maxn];             // 01矩阵
+    bool inq[maxn][maxn] = { false };   // 记录(x, y)是否已入过队
+    int X[4] = { 0, 0, 1, -1 };
+    int Y[4] = {1, -1, 0, 0};
+
+    bool judge(int x, int y) {
+        // 判断坐标(x, y) 是否需要访问
+        // 越界返回false
+        if (x >= n || x < 0 || y > m || y < 0) return false;
+        // 当前位置为0, 或（x, y) 已入过队，返回false
+        if (matrix[x][y] == 0 || inq[x][y] == true) return false;
+        return true;
+    }
+
+    // BFS 函数访问位置(x, y)所在的块， 
+    // 将该块中所有“ 1 " 的inq都设置为true
+    void BFS(int x, int y) {
+        queue<node> Q;
+        Node.x = x, Node.y = y; // 当前结点的坐标为(x, y)
+        Q.push(Node);           // 将结点Node入队
+        inq[x][y] = true;       // 设置(x, y)已入过队
+        while (!Q.empty()) {
+            node top = Q.front();   // 取出队首元素
+            Q.pop();            // 队首元素出队
+            for (int i = 0; i < 4; i++) {
+                int newX = top.x + X[i];
+                int newY = top.y + Y[i];
+                if (judge(newX, newY)) {
+                    // 如果新位置(newX, newY)需要访问
+                    // 设置Node 的坐标为(newX, newY)
+                    Node.x = newX, Node.y = newY;
+                    Q.push(Node);       // 将结点Node 加入队列
+                    inq[newX][newY] = true;
+                }
+            }
+        }
+    }
+
+    int main()
+    {
+        scanf_s("%d%d", &n, &m);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                scanf_s("%d", &matrix[i][j]);
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                // 如果元素为1, 且未入过队
+                if (matrix[i][j] == 1 && inq[i][j] == false) {
+                    ans++;      // 块数加1
+                    BFS(i, j);
+                }
+            }
+        }
+        printf("%d\n", ans);
+    }
+```
+
+例题2：给定一个`n*m`大小的迷宫，其中*代表不可通过的墙壁，而“.”代表平地，S表示起点，T代表终点。移动过程中，如果当前位置是(x, y)（下标从0开始），且每次只能前往上下左右(x, y+1)、(x, y-1)、(x-1,y)、（x+1, y)四个位置的平地，求从起点S到达终点T的最少步数。
+
+```C++
+    #include <cstdio>
+    #include <string>
+    #include <queue>
+    using namespace std;
+
+    const int maxn = 100;
+    struct node {
+        int x, y;
+        int step;   // step为从起点S到达该位置的最少步数（即层数）
+    }S, T, Node;
+
+    int n, m;   // n为行，m为列
+    char maze[maxn][maxn];  // 迷宫信息
+    bool inq[maxn][maxn] = { false };   // 记录是否已入队
+    int X[4] = { 0, 0, 1, -1 };
+    int Y[4] = { 1, -1, 0, 0 };
+
+    bool test(int x, int y) {
+        if (x >= n || x < 0 || y > m || y < 0) return false;
+        if (maze[x][y] == '*') return false;
+        if (inq[x][y] == true) return false;
+        return true;
+    }
+
+    int BFS() {
+        queue<node> q;
+        q.push(S);
+        while (!q.empty()) {
+            node top = q.front();
+            q.pop();
+            if (top.x == T.x && top.y == T.y) {
+                return top.step;
+            }
+            for (int i = 0; i < 4; i++) {
+                int newX = top.x + X[i];
+                int newY = top.y + Y[i];
+                if (test(newX, newY)) {
+                    // 位置(newX, newY)有效
+                    // 设置Node 的坐标为(newX, newY)
+                    Node.x = newX, Node.y = newY;
+                    Node.step = top.step + 1;
+                    q.push(Node);       // 将结点Node 加入队列
+                    inq[newX][newY] = true;
+                }
+            }
+        }
+        return -1;  // 无法到达终点T时返回－1
+    }
+
+    int main()
+    {
+        scanf_s("%d%d", &n, &m);
+        for (int i = 0; i < n; i++) {
+            getchar();  // 过滤掉每行后面的换行符
+            for (int j = 0; j < m; j++) {
+                maze[i][j] = getchar();
+            }
+            maze[i][m + 1] = '\0';
+        }
+        scanf_s("%d%d%d%d", &S.x, &S.y, &T.x, &T.y);
+        S.step = 0;
+        printf("%d\n", BFS());
+    }
+```
+
+再强调一点，在BFS中设置的inq数组的含义是判断结点是否已入过队，而不是结点是否已被访问。区别在于：如果设置成是否已被访问，有可能在某个结点正在队列中（但还未访问）时由于其他结点可以到达它而将这个结点再次入队，导致很多结点反复入队，计算量大大增加。因此BFS中让每个结点只入队一次，故需要设置inq数组的含义为结点是否已入过队而非结点是否已被访问。

@@ -15,3 +15,7 @@
 [第六章 C++标准模板库(STL)介绍](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter6/README.md)
 
 [第七章 提高篇(1)——数据结构专题(1)](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter7/README.md)
+
+[第八章 提高篇(2)——搜索专题(1)](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter8/README.md)
+
+[第九章 提高篇(3)——数据结构专题(2)](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter9/README.md)
