@@ -248,3 +248,68 @@
         }
     }
 ```
+
+如果需要在层次遍历的时候，还需要计算出每个结点所处的层次，这时需要在二叉树结点的定义中添加一个记录层次layer的变量：
+
+```C++
+    struct node{
+        int data;
+        int layer;  // 层次
+        node* lchild;
+        node* rchild;
+    };
+```
+
+```C++
+    // 层次遍历
+    void LayerOrder(node* root){
+        queue<node*> q;
+        root->layer = 1;
+        q.push(root);
+        while(!q.empty()){
+            node* now = q.front();
+            q.pop();
+            cout << now->data << " ";
+            if(now->lchild != NULL){
+                now->lchild->layer = now->layer + 1;
+                q.push(now->lchild);
+            }
+            if(now->rchild != NULL){
+                now->rchild->layer = now->layer + 1;
+                q.push(now->rchild);
+            }
+        }
+    }
+```
+
+针对问题：给定一棵二叉树的先序遍历序列和中序遍历序列，重建这棵二叉树。
+
+```C++
+    // 当前先序序列区间为[preL, preR]，中序序列区间为[inL, inR]，返回根节点地址
+    node* create(int preL, int preR, int inL, int inR){
+        if(preL > preR){
+            return NULL;    // 先序序列长度小于等于0时，直接返回
+        }
+        node* root = new node;  // 新建一个新的结点，用来存放当前二叉树的根结点
+        root->data = pre[preL];// 新结点的数据域为根结点的值
+        int k;
+        for(k = inL; k <= inR; k++)){
+            if(in[k] == pre[preL]){
+                break;
+            }
+        }
+        int numLeft = k - inL;  // 左子树的结点个数
+
+        // 左子树的先序区间为[preL+1, preL+numLeft]，中序区间为[inL, k-1]
+        // 返回左子树的根结点地址，赋值给root的左指针
+        root->lchild = create(preL + 1, preL+numLeft, inL, k-1);
+
+        // 右子树的先序区间为(preL + numLeft + 1, preR]，中序区间为[k+1, inR]
+        // 返回右子树的根结点地址，赋值给root的右指针
+        root->rchild = create(preL + numLeft + 1, preR, k+1, inR);
+
+        return root;
+    }
+```
+
+### 9.2.5 二叉树的静态实现
