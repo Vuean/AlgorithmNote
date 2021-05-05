@@ -313,3 +313,121 @@
 ```
 
 ### 9.2.5 二叉树的静态实现
+
+静态二叉链表是指，结点的左右指针域使用int型代替，用来表示左右子树的根结点在数组中的下标。为此需要建立一个大小为结点上限个数的node型数组，所有动态生成的结点都直接使用数组中的结点，所有对指针的操作都改为对数组下标的访问。于是，结点node的定义变为如下：
+
+```C++
+    struct node{
+        typename data;  // 数据域
+        int lchild;     // 指向左孩子树的指针域
+        int rchild;     // 指向右孩子树的指针域
+    } Node[maxn];
+```
+
+在这样的定义下，结点的动态生成就可以转变为如下的静态指定：
+
+```C++
+    int index = 0;
+    int newNode(int v)
+    {
+        // 分配一个Node数组中的结点给新的结点，index为其下标
+        Node[index].data = v;
+        Node[index].lchild = -1;
+        Node[index].rchild = -1;
+        return index++;
+    }
+```
+
+下面给出二叉树的查找、插入、建立的代码：
+
+```C++
+    // 查找， root为根结点在数组中的下标
+    void search(int root, int x, int newdata){
+        if(root == -1){
+            // 用-1来代替NULL
+            return;
+        }
+        if(Node[root].data == x){
+            // 找到数据域为x的结点，把它修改成newdata
+            Node[root].data = newdata;
+        }
+        search(Node[root].lchild, x, newdata);
+        search(Node[root].rchild, x, newdata);
+    }
+```
+
+```C++
+    // 插入，root为根结点在数组中的下标
+    void insert(int &root, int x){
+        if(root == -1){
+            // 空树，说明查找失败，也即插入位置
+            root = newNode(x);
+            return;
+        }
+        if(由二叉树的性质x应该插在左子树){
+            insert(Node[root].lchild, x);
+        }else{
+            insert(Node[root].rchild, x);
+        }
+    }
+```
+
+```C++
+    // 二叉树的建立，root为根结点在数组中的下标
+    int Create(int data[], int n){
+        int root = -1;
+        for(int i = 0; i < n; i++){
+            insert(root, data[i]);
+        }
+        return root;
+    }
+```
+
+```C++
+    // 先序遍历
+    void preorder(int root){
+        if(root == -1){
+            return;
+        }
+        // 访问根结点root
+        cout << Node[root].data << " ";
+        preorder(Node[root].lchild);
+        preorder(Node[root].rchild);
+    }
+    // 中序遍历
+    void inorder(int root){
+        if(root == -1){
+            return;
+        }
+        inorder(Node[root].lchild);
+        // 访问根结点root
+        cout << Node[root].data << " ";
+        inorder(Node[root].rchild);
+    }
+    // 后序遍历
+    void postorder(int root){
+        if(root == -1){
+            return;
+        }
+        postorder(Node[root].lchild);
+        postorder(Node[root].rchild);
+        // 访问根结点root
+        cout << Node[root].data << " ";
+    }
+    // 层序遍历
+    void LayerOrder(int root){
+        queue<int> q;
+        q.push(root);
+        while(!q.empty()){
+            int now = q.front();
+            q.pop();
+            cout << Node[now].data << " ";
+            if(Node[now].lchild != -1) q.push(Node[now].lchild);
+            if(Node[now].rchild != -1) q.push(Node[now].rchild);
+        }
+    }
+```
+
+## 9.3 树的遍历
+
+### 9.3.1 树的静态写法
