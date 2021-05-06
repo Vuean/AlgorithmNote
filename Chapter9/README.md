@@ -431,3 +431,126 @@
 ## 9.3 树的遍历
 
 ### 9.3.1 树的静态写法
+
+通常一般意义上的树，即子结点个数不限且子结点没有先后次序的树。
+
+树的静态写法：
+
+```C++
+    struct node{
+        typename data;  // 数据域
+        vector<int> child;  // 指针域，存放所有子节点的下标
+    }Node[maxn];
+```
+
+与二叉树的静态实现类似，当需要新建一个结点时，就按顺序从数组中取出一个下标即可，如下所示：
+
+```C++
+    int intdex = 0;
+    int newNode(int v){
+        Node[index].data = v;
+        Node[index].child.clear();
+        return index++; // 返回结点下标，并令index自增
+    }
+```
+
+### 9.3.2 树的先根遍历
+
+对一棵一般意义的树来说，先根遍历即总是先访问根结点，再去访问所有子树。
+
+```C++
+    void PreOrder(int root){
+        printf("%d", Node[root].data);
+        for(int i = 0; i < Node[root].child.size(); i++){
+            PreOrder(Node[root].child[i]);
+        }
+    }
+```
+
+### 9.3.3 树的层序遍历
+
+总是从树根开始，一层一层地向下遍历。
+
+```C++
+    void LayerOrder(int root){
+        queue<int> Q;
+        Q.push(Node);           // 将根结点入队
+        while(!Q.empty()){
+            int front = Q.front();
+            printf("%d", Node[root].data);
+            Q.pop();
+            for(int i = 0; i < Node[root].child.size(); i++){
+                Q.push(Node[front].child[i]);
+            }
+        }
+    }
+```
+
+同样的，如果需要对结点的层号进行求解，只需要在结构体node的定义中增加变量来记录结点的层号：
+
+```C++
+    struct node{
+        int layer;
+        int data;
+        vector<int> child;
+    };
+```
+
+```C++
+    // 树的层次遍历
+    void LayerOrder(int root){
+        queue<int> Q;
+        Q.push(Node);           // 将根结点入队
+        Node[root].layer = 0;
+        while(!Q.empty()){
+            int front = Q.front();
+            printf("%d", Node[root].data);
+            Q.pop();
+            for(int i = 0; i < Node[root].child.size(); i++){
+                int child = Node[front].child[i];
+                Node[child].layer = Node[front].layer + 1;
+                Q.push(child);
+            }
+        }
+    }
+```
+
+### 9.3.4 从树的遍历看DFS和BFS
+
+1. 深度优先搜索(DFS)与先根遍历
+
+    碰到一些可以用DFS做的题目，不妨把一些状态作为树的结点，然后问题就会转换为直观的对树进行先根遍历的问题。
+
+2. 广度优先搜索(BFS)与层序遍历
+
+    对所有合法的BFS求解过程，都可以像DFS中那样画出一棵树，并且将广度优先搜索问题转换为树的层序遍历的问题。
+
+## 9.4 二叉查找树(BST)
+
+### 9.4.1 二叉查找树的定义
+
+二叉查找树(Binary Search Tree, BST)是一种特殊的二叉树，又称为**排序二叉树、二叉搜索树、二叉排序树**。二叉查找树的递归定义如下：
+
+1. 要么二叉查找树是一棵空树。
+
+2. 要么二叉查找树由根结点、左子树、右子树组成，其中左子树和右子树都是二叉查找树，且左子树上所有结点的数据域均小于或等于根结点的数据域，右子树上所有结点的数据域均大于根结点的数据域。
+
+### 9.4.2 二叉查找树的基本操作
+
+二叉查找树的基本操作有查找、插入、建树、删除。
+
+1. 查找操作
+
+    二叉查找树的性质决定了读者可以只选择其中一棵子树进行遍历，因此查找将会是从树根到查找结点的一条路径，故最坏复杂度是O(h)，其中h是二叉查找树的高度。于是可以得到查找操作的基本思路：
+
+    1. 如果当前根结点root为空，说明查找失败，返回。
+
+    2. 如果需要查找的值x等于当前根结点的数据域root->data，说明查找成功，访问之。
+
+    3. 如果需要查找的值x小于当前根结点的数据域root->data，说明应该往左子树查找，因此向root->lchild递归。
+
+    4. 说明需要查找的值x大于当前根结点的数据域root->data，则应该往右子树查找，因此向root->rchild递归。
+
+    ```C++
+
+    ```
