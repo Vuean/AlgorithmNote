@@ -552,5 +552,23 @@
     4. 说明需要查找的值x大于当前根结点的数据域root->data，则应该往右子树查找，因此向root->rchild递归。
 
     ```C++
-
+        // search函数查找二叉查找树中数据域为x的结点
+        void search(node* root, int x)
+        {
+            if(root == NULL){
+                cout << "search failed" << endl;
+                return;
+            }
+            if(x == root->data){
+                cout << root->data << endl;
+            }else if(x < root->data){
+                search(root->lchild, x);
+            }else{
+                search(root->rchild, x);
+            }
+        }
     ```
+
+    可以看到，和普通二叉树的查找函数不同，二叉查找树的查找在于对左右子树的选择递归。在普通二叉树中，无法确定需要查找的值x到底是在左子树还是右子树，但是在二叉查找树中就可以确定，因为二叉查找树中的数据域顺序总是左子树<根结点<右子树。
+
+2. 插入操作
