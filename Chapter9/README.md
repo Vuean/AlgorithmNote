@@ -692,3 +692,132 @@
 ## 9.5 平衡二叉树(AVL树)
 
 ### 9.5.1 平衡二叉树的定义
+
+平衡二叉树一般也称作AVL树。AVL树仍然是一棵二叉查找树，只是在其基础上增加了“平衡”的要求。所谓平衡是指，对AVL树的任意结点来说，其左子树与右子树的高度之差的绝对值不超过1，其中左**子树与右子树的高度之差称为该结点的平衡因子**。
+
+只要能随时保证每个结点平衡因子的绝对值不超过1，AVL的高度就始终能保持O(logn)级别。由于需要对每个结点都得到平衡因子，可在树的结构中加入一个变量height，用来记录以当前结点为根结点的子树的高度：
+
+```C++
+    struct node {
+        int v, height;  // v为结点权值，height为当前子树高度
+        node *lchild, *rchild;
+    };
+```
+
+在这种定义下，如果需要新建一个结点，就可以采用如下写法：
+
+```C++
+    // 个结点， 就可以采用如下写法：
+    node* newNode(int v){
+        node* Node = new node;
+        Node->v = v;
+        Node->height = 1;
+        Node->lchild = Node->rchild = NULL;
+        return Node;
+    }
+```
+
+显然，可以通过下面的函数获取结点root所在子树的当前高度：
+
+```C++
+    // 获取以root为根结点的子树的当前height
+    int getHeight(node* root)
+    {
+        if(root == NULL) return 0;
+        return root->height;
+    }
+```
+
+于是根据定义，可以通过下面的函数计算平衡因子：
+
+```C++
+    // 计算结点root的平衡因子
+    int getBalanceFactor(node* root)
+    {
+        // 左子树高度减右子树高度
+        return getHeight(root->lchild) - getHeight(root->rchild);
+    }
+```
+
+因为没有办法通过当前结点的子树的平衡因子计算得到该结点的平衡因子，而需要借助子树的高度间接求得。显然，结点root所在子树的height等于其左子树的height与右子树的height的较大值加1，因此可以通过下面的函数来更新height：
+
+```C++
+    // 更新结点root的height
+    void updateHeight(node* root){
+        // max(左孩子的height, 右孩子的height) + 1
+        root->height = max(getHeight(root->lchild), getHeight(root->rchild)) + 1;
+    }
+```
+
+### 9.5.2 平衡二叉树的基本操作
+
+1. 查找操作
+
+    由于AVL树是一棵二叉查找树，因此其查找操作的做法与二叉查找树相同，时间复杂度为O(logn)。
+
+    ```C++
+        // search函数查找AVL树中数据域为x的结点
+        void search(node * root, int x)
+        {
+            if(root == NULL){
+                // 空树，查找失败
+                printf("search failed\n");
+                return;
+            }
+            if(x == root->data){
+                printf("%d\n", root->data);
+            }else if(x < root->data){
+                search(root->lchild, x);
+            }else{
+                search(root->rchild, x);
+            }
+        }
+    ```
+
+2. 插入操作
+
+    左旋(Left Rotation)的调整步骤如下：
+
+    - 让B的左子树成为A的右子树；
+
+    - 让A称为B的左子树
+
+    - 将根结点设定为结点B
+
+    > 代码实现
+
+    ```C++
+        // 左旋(Left Rotation)
+        void L(node* &root){
+            node* temp = root->rchild;
+            temp->lchild = root;
+            updateHeight(root);
+            updateHeight(temp);
+            root = temp;
+        }
+    ```
+
+    右旋(Right Rotation)的调整步骤如下：
+
+    - 让A的右子树成为B的左子树
+
+    - 让B成为A的右子树
+
+    - 将根结点设为结点A
+
+    > 代码实现
+
+    ```C++
+        // 右旋(Right Rotation)
+        void R(node* &root){
+            node* temp = root->lchild;
+            temp->rchild = root;
+            updateHeight(root);
+            updateHeight(temp);
+            root = temp;
+        }
+    ```
+
+    基于左旋和右旋，再来讨论AVL树的插入操作。
+
+    假设现在已有一棵平衡二叉树，那么可以预见到，在往其中插入一个结点时，一定会有结点的平衡因子发生变化，这样以该结点为根结点的子树就是失衡的，需要进行调整。显然，**只有在从根结点到该插入结点的路径上的结点才可能发生平衡因子变化**，因此只需对这条路径上失衡的结点进行调整。可以证明，只要把最靠近插入结点的失衡结点调整到正常，路径上的所有结点就都会平衡。
