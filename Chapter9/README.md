@@ -693,7 +693,7 @@
 
 ### 9.5.1 平衡二叉树的定义
 
-平衡二叉树一般也称作AVL树。AVL树仍然是一棵二叉查找树，只是在其基础上增加了“平衡”的要求。所谓平衡是指，对AVL树的任意结点来说，其左子树与右子树的高度之差的绝对值不超过1，其中左**子树与右子树的高度之差称为该结点的平衡因子**。
+平衡二叉树一般也称作AVL树。AVL树仍然是一棵二叉查找树，只是在其基础上增加了“平衡”的要求。所谓平衡是指，对AVL树的任意结点来说，其左子树与右子树的高度之差的绝对值不超过1，其中**左子树与右子树的高度之差称为该结点的平衡因子**。
 
 只要能随时保证每个结点平衡因子的绝对值不超过1，AVL的高度就始终能保持O(logn)级别。由于需要对每个结点都得到平衡因子，可在树的结构中加入一个变量height，用来记录以当前结点为根结点的子树的高度：
 
@@ -821,3 +821,105 @@
     基于左旋和右旋，再来讨论AVL树的插入操作。
 
     假设现在已有一棵平衡二叉树，那么可以预见到，在往其中插入一个结点时，一定会有结点的平衡因子发生变化，这样以该结点为根结点的子树就是失衡的，需要进行调整。显然，**只有在从根结点到该插入结点的路径上的结点才可能发生平衡因子变化**，因此只需对这条路径上失衡的结点进行调整。可以证明，只要把最靠近插入结点的失衡结点调整到正常，路径上的所有结点就都会平衡。
+
+    根据插入结点后的树型不同，可分为四种类型：LL型、LR型、RR型、RL型，其各自的调整方法如下标所示：
+
+    |树型|判定条件|调整方法|
+    |:-:|:-|:-|
+    |LL|BF(root)=2, BF(root->lchild)=1|对root进行右旋|
+    |LR|BF(root)=2, BF(root->lchild)=-1|先对root->lchild进行左旋，再对root进行右旋|
+    |RR|BF(root)=-2, BF(root->rchild)=-1|对root进行左旋|
+    |RL|BF(root)=-2, BF(root->rchild)=1|先对root->rchild进行右旋，再对root进行右旋|
+
+    现在考虑如何书写插入代码。首先，AVL树的插入代码是在二叉查找树的插入代码的基础上增加平衡操作的，因此，如果不考虑平衡操作，代码是下面这样的：
+
+    ```C++
+        // 插入权值为v的结点
+        void insert(node* &root, int v)
+        {
+            if(root == NULL){
+                root = newNode(v);
+                return;
+            }
+            if(v < root->v){
+                insert(root->lchild, x);
+            }
+            else{
+                insert(root->rchild, x);
+            }
+        }
+    ```
+
+    在这个基础上，由于需要从插入的结点开始从下往上判断结点是否失衡，因此需要在每个insert函数之后更新当前子树的高度，并在这之后根据树型是LL型、LR型、RR型、RL型之一来进行平衡操作，代码如下：
+
+    ```C++
+        // 插入权值为v的结点
+        void insert(node* &root, int v)
+        {
+            if(root == NULL)
+            {
+                root = newNode(v);
+                return;
+            }
+            if(v < root->v)
+            {
+                insert(root->lchild, v);
+                updateHeight(root);     // 更新树高
+                if(getBalanceFactor(root) == 2){
+                    if(getBalanceFactor(root->lchild) == 1){
+                        // LL型
+                        R(root);
+                    }else if(getBalanceFactor(root->lchild) == -1){
+                        // LR型
+                        L(root->lchild);
+                        R(root);
+                    }
+                }
+            }
+            else{
+                // v比根结点的权值大
+                insert(root->rchild, v);
+                updateHeight(root);
+                if(getBalanceFactor(root) == -2)
+                {
+                    if(getBalanceFactor(root->rchild) == -1)
+                    {
+                        // RR型
+                        L(root);
+                    }else if(getBalanceFactor(root->rchild) == 1)
+                    {
+                        // RL型
+                        R(root->rchild);
+                        L(root);
+                    }
+                }
+            }
+        }
+    ```
+
+3. AVL树的建立
+
+    有了上面插入操作的基础，AVL树的建立就非常简单了，因为只需依次插入n个结点即可。
+
+    ```C++
+        // AVL树的建立
+        node* Create(int data[], int n)
+        {
+            node* root = NULL;
+            for(int i = 0; i < n; i++)
+            {
+                insert(root, data[i]);
+            }
+            return root;
+        }
+    ```
+
+## 9.6 并查集
+
+### 9.6.1 并查集的定义
+
+并查集是一种维护集合的数据结构，它的名字中“并”“查”“集”分别取自Union（合并）、Find（查找）、Set（集合）这3个单词。也就是说，并查集支持下面两个操作：
+
+1. 合并：合并两个集合。
+
+2. 查找：判断两个元素是否在一个集合。
