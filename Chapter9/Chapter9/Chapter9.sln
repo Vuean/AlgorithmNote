@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec2Exa1TreeTraversals", "S
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec4Exa1IsItABinarySearchTree", "Sec4Exa1IsItABinarySearchTree\Sec4Exa1IsItABinarySearchTree.vcxproj", "{C7A920DB-C5F5-412D-AA17-FAFB1EB4C27B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec6Exa1GoodFriend", "Sec6Exa1GoodFriend\Sec6Exa1GoodFriend.vcxproj", "{9E04C08C-9487-44EA-A1BD-C636C141691B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{C7A920DB-C5F5-412D-AA17-FAFB1EB4C27B}.Release|x64.Build.0 = Release|x64
 		{C7A920DB-C5F5-412D-AA17-FAFB1EB4C27B}.Release|x86.ActiveCfg = Release|Win32
 		{C7A920DB-C5F5-412D-AA17-FAFB1EB4C27B}.Release|x86.Build.0 = Release|Win32
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Debug|x64.ActiveCfg = Debug|x64
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Debug|x64.Build.0 = Debug|x64
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Debug|x86.ActiveCfg = Debug|Win32
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Debug|x86.Build.0 = Debug|Win32
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Release|x64.ActiveCfg = Release|x64
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Release|x64.Build.0 = Release|x64
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Release|x86.ActiveCfg = Release|Win32
+		{9E04C08C-9487-44EA-A1BD-C636C141691B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
