@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec5Exe1RootOfAVLTree", "Se
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec6Exe1SocialClusters", "Sec6Exe1SocialClusters\Sec6Exe1SocialClusters.vcxproj", "{3403D7B1-1E5F-4DF8-8896-504D04E3997E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec7Exe1InsertionOrHeapSort", "Sec7Exe1InsertionOrHeapSort\Sec7Exe1InsertionOrHeapSort.vcxproj", "{B43341E6-7765-4713-B296-1B113B1004DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -161,6 +163,14 @@ Global
 		{3403D7B1-1E5F-4DF8-8896-504D04E3997E}.Release|x64.Build.0 = Release|x64
 		{3403D7B1-1E5F-4DF8-8896-504D04E3997E}.Release|x86.ActiveCfg = Release|Win32
 		{3403D7B1-1E5F-4DF8-8896-504D04E3997E}.Release|x86.Build.0 = Release|Win32
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Debug|x64.ActiveCfg = Debug|x64
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Debug|x64.Build.0 = Debug|x64
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Debug|x86.ActiveCfg = Debug|Win32
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Debug|x86.Build.0 = Debug|Win32
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Release|x64.ActiveCfg = Release|x64
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Release|x64.Build.0 = Release|x64
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Release|x86.ActiveCfg = Release|Win32
+		{B43341E6-7765-4713-B296-1B113B1004DD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
