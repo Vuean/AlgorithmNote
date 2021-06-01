@@ -1157,3 +1157,49 @@
 ## 9.8 哈夫曼树
 
 ### 9.8.1 哈夫曼树
+
+树的**带权路径长度**(**Weighted Path Length of Tree, WPL**)等于它所有叶子结点的带权路径长度之和。
+
+带权路径长度最小的树被称为哈夫曼树（又称为最优二叉树）。显然，对同一组叶子结点来说，哈夫曼树可以是不唯一的，但是最小带权路径长度一定是唯一的。
+
+构造哈夫曼树：
+
+1. 初始状态下共有n个结点（结点的权值分别是给定的n个数），将它们视作n棵只有一个结点的树。
+
+2. 合并其中根结点权值最小的两棵树，生成两棵树根结点的父结点，权值为这两个根结点的权值之和，这样树的数量就减少了一个。
+
+3. 重复操作2，直到只剩下一棵树为止，这棵树就是哈夫曼树。
+
+可以看出，构造哈夫曼树也即反复选择两个最小元素，合并，直到只剩下一个元素。于是，一般可以用优先队列来实现。
+
+```C++
+    #include <cstdio>
+    #include <queue>
+    using namespace std;
+
+    // 代表小顶堆的优先队列
+    priority_queue<long long, vector<long long>, greater<long long>> q;
+
+    int main()
+    {
+        int n;
+        long long temp, x, y, ans;
+        scanf_s("%d", &n);
+        for(int i = 0; i < n; i++)
+        {
+            scanf_s("%lld", &temp);
+            q.push(temp);
+        }
+        while(q.size() > 1)
+        {
+            x=q.top();
+            q.pop();
+            y = q.top();
+            q.push(x+y);
+            ans += x + y;
+        }
+        printf("%lld\n", ans);
+    }
+```
+
+### 9.8.2 哈弗曼编码
