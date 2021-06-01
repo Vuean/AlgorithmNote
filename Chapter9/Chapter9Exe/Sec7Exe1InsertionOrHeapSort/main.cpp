@@ -58,10 +58,78 @@ bool insertSort()
 // 对heap数组在[low, high]范围进行调整
 // 其中low 为欲调整结点的数组下标，
 // high 一般为堆的最后一个元素的数组下标
+void downAdjust(int low, int high)
+{
+	int i = low, j = i * 2;
+	while (j <= high)
+	{
+		// 如果右孩子结点存在，且右孩子结点的值大于左孩子结点
+		if (j + 1 <= high && tempOri[j + 1] > tempOri[j])
+		{
+			j = j + 1;	// 让j存储右孩子结点下标
+		}
+		// 如果孩子结点中最大的权值比父亲结点大
+		if (tempOri[j] > tempOri[i])
+		{
+			swap(tempOri[j], tempOri[i]);
+			i = j;
+			j = i * 2;
+		}
+		else
+		{
+			break;
+		}
+	}
+}
 
-
+// 堆排序
+void heapSort()
+{
+	bool flag = false;
+	for (int i = n / 2; i >= 1; i--)
+	{
+		downAdjust(i, n);	// 建堆
+	}
+	for (int i = n; i > 1; i--)
+	{
+		if (i != n && isSame(tempOri, changed))
+		{
+			flag = true;
+		}
+		swap(tempOri[i], tempOri[1]);	// 交换heap[i]与堆顶
+		downAdjust(1, i - 1);	// 调整堆顶
+		if (flag == true)
+		{
+			showArray(tempOri);
+			return;
+		}
+	}
+}
 
 int main()
 {
-
+	scanf_s("%d", &n);
+	for (int i = 1; i <= n; i++)
+	{
+		scanf_s("%d", &origin[i]);
+		tempOri[i] = origin[i];
+	}
+	for (int i = 1; i <= n; i++)
+	{
+		scanf_s("%d", &changed[i]);
+	}
+	if (insertSort())
+	{
+		printf("Insertion Sort\n");
+		showArray(tempOri);
+	}
+	else
+	{
+		printf("Heap Sort\n");
+		for (int i = 1; i <= n; i++)
+		{
+			tempOri[i] = origin[i]; // 还原tempOri数组
+		}
+		heapSort();
+	}
 }
