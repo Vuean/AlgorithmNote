@@ -143,3 +143,170 @@
         ```
 
 ### 10.3.2 采用广度优先搜索(BFS)法遍历图
+
+1. 用BFS遍历图
+
+    广度优先搜索以“广度”作为关键词，每次以扩散的方式向外访问顶点。和树的遍历一样，使用BFS遍历图需要使用一个队列，通过反复取出队首顶点，将该顶点可到达的未曾加入过队列的顶点全部入队，直到队列为空时遍历结束。
+
+2. BFS的具体实现
+
+    如果要遍历整个图，则需要对所有连通块分别进行遍历。使用BFS遍历图的基本思想是建立一个队列，并把初始顶点加入队列，此后每次都取出队首顶点进行访问，并把从该顶点出发可以到达的未曾加入过队列（而不是未访问）的顶点全部加入队列，直到队列为空。
+
+    伪代码如下：
+
+    ```C++
+        BFS(u){ // 遍历u所在的连通块
+            queue q;    // 定义队列q
+            q.push(u);  // 将u入队
+            inq[u] = true;  // 设置u已入过队
+            while(q非空){
+                取出q的队首元素u进行访问；
+                for(从u出发可达的所有顶点v)
+                {
+                    // 如果v未曾加入过队列
+                    if(inq[v] == false){
+                        q.push(v);      // 将v入队；
+                        inq[v] = true;  // 设置v已被加入过队列
+                    }
+                }
+            }
+        }
+
+        BFSTRave(G)
+        {
+            for(G的所有顶点u)
+            {
+                // 如果u未曾加入过队列
+                if(inq[u] == false){
+                    // 遍历u所在的连通块
+                    BFS(u);
+                }
+            }
+        }
+    ```
+
+    1. 邻接矩阵版
+
+        ```C++
+            int n, G[MAXV][MAXV];   // n为顶点数，MAXV为最大定点数
+            bool inq[MAXV][MAXV];   // 记录顶点i是否入过队
+
+            void BFS(int u)
+            {
+                queue<int> q;
+                q.push(u);
+                inq[u] = true;
+                while(!q.empty())
+                {
+                    int u = q.front();
+                    q.pop();
+                    for(int v = 0; v < n; v++)
+                    {
+                        if(inq[v] == false && G[u][v] != INF)
+                        {
+                            q.push(v);
+                            inq[v] = true;
+                        }
+                    }
+                }
+            }
+
+            void BFSTrave()
+            {
+                for(int u = 0; u < n; u++)
+                {
+                    if(inq[u] == false)
+                    {
+                        BFS(u);
+                    }
+                }
+            }
+        ```
+
+    2. 邻接表版
+
+        ```C++
+            vector<int> Adj[MAXV];  // 图G,Adj[u]存放从顶点u出发可以到达的所有顶点
+            int n;  // n为顶点数，MAXV为最大顶点数
+            bool inq[MAXV] = {false};
+
+            void BFS(int u)
+            {
+                queue<int> q;
+                q.push(u);
+                inq[u] = true;
+                while(!q.empty())
+                {
+                    int u = q.front();
+                    q.pop();
+                    for(int i = 0; i < Adj[u].size(); i++)
+                    {
+                        int v = Adj[u][i];
+                        if(inq[v] == false)
+                        {
+                            q.push(v);
+                            inq[v] = true;
+                        }
+                    }
+                }
+            }
+
+            void BFSTrave()
+            {
+                for(int u = 0; u < n; u++)
+                {
+                    if(inq[u] == false)
+                    {
+                        BFS(u);
+                    }
+                }
+            }
+        ```
+
+    如果需要存放顶点的层号，可以顶级结点结构体Node：
+
+    ```C++
+        struct Node
+        {
+            int v;      // 顶点编号
+            int layer;  // 顶点层号
+        };
+        // 邻接表为：
+        vector<node> Adj[N];
+    ```
+
+    则层号传递关系为：
+
+    ```C++
+        void BFS(int s)
+        {
+            queue<Node> q;
+            Node start;     // 起始顶点
+            start.v = s;    // 起始顶点编号
+            start.layer = 0;// 起始顶点层号为0
+            q.push(start);
+            inq[start.v] = true;
+            while(!q.empty())
+            {
+                Node topNode = q.front();
+                q.pop();
+                int u = topNode.v;
+                for(int i = 0; i < Adj[u].size(); i++)
+                {
+                    Node next = Adj[u][i];
+                    next.layer = topNode.layer + 1;
+                    if(inq[next.v] == false)
+                    {
+                        q.push(next);
+                        inq[next.v] = true;
+                    }
+                }
+            }
+        }
+    ```
+
+## 10.4 最短路径
+
+最短路径是图论中一个很经典的问题：给定图G(V,E)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小。
+
+### 10.4.1 Dijkstra算法

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chapter10", "Chapter10.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe1HeadOfAGang", "Sec3Exe1HeadOfAGang\Sec3Exe1HeadOfAGang.vcxproj", "{EA9CDD47-3F0C-4ED6-B491-9A87367B13A2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sec3Exe2ForwardsOnWeibo", "Sec3Exe2ForwardsOnWeibo\Sec3Exe2ForwardsOnWeibo.vcxproj", "{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{EA9CDD47-3F0C-4ED6-B491-9A87367B13A2}.Release|x64.Build.0 = Release|x64
 		{EA9CDD47-3F0C-4ED6-B491-9A87367B13A2}.Release|x86.ActiveCfg = Release|Win32
 		{EA9CDD47-3F0C-4ED6-B491-9A87367B13A2}.Release|x86.Build.0 = Release|Win32
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Debug|x64.ActiveCfg = Debug|x64
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Debug|x64.Build.0 = Debug|x64
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Debug|x86.ActiveCfg = Debug|Win32
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Debug|x86.Build.0 = Debug|Win32
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Release|x64.ActiveCfg = Release|x64
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Release|x64.Build.0 = Release|x64
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Release|x86.ActiveCfg = Release|Win32
+		{B9A5A80B-8FF4-4F6C-9B39-BA81548BBFDF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
