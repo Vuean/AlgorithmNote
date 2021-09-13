@@ -1,4 +1,4 @@
-// ÊäÈëÊı×é£¬½µĞòÅÅÁĞ
+// è¾“å…¥æ•°ç»„ï¼Œé™åºæ’åˆ—
 #include <stdio.h>
 #include <math.h>
 using namespace std;
@@ -14,7 +14,7 @@ int main()
     {
         for(int j = 0; j < 10 - i; j++)
         {
-            // ¸ÄÎª>¼´ÎªÉıĞòÅÅÁĞ
+            // æ”¹ä¸º>å³ä¸ºå‡åºæ’åˆ—
             if (num[j] > num[j+1])
             {
                 int tmp = num[j];
