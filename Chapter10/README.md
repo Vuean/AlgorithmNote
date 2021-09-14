@@ -338,7 +338,7 @@ Dijkstra算法的伪代码实现：
             记u已被访问;
             for(从u出发能到达的所有顶点v)
             {
-                if(u未被访问&&以u为中介点使s到顶点v的最短距离d[v]更优)
+                if(v未被访问&&以u为中介点使s到顶点v的最短距离d[v]更优)
                 {
                     优化d[v];
                 }
@@ -446,3 +446,128 @@ Dijkstra算法的伪代码实现：
 
 Diskstra算法只能应对所有边权都是非负数的情况，如果边权出现负数，那么该算法可能会出错，这是最好适用SPFA算法。
 
+为了在Diskstra算法中记录最短路径本身，可以设置数组pre[ ]，令pre[v]表示从起点s到顶点v的最短路径上v的前一个顶点（即前驱结点）的编号。这样，当优化d[v]的伪代码条件成立时，可以将u赋值给pre[v]，最终就能把最短路径上每一个顶点的前驱结点记录下：
+
+```C++
+    if(v未被访问&&以u为中介点使s到顶点v的最短距离d[v]更优)
+    {
+        优化d[v];
+        令v的前驱为u;
+    }
+```
+
+具体实现中，以邻接矩阵为例：
+
+```C++
+    int n, G[MAXV][MAXV];         // n为顶点数，MAXV为最大顶点数
+    int d[MAXV];                          // 起点到达各点的最短路径长度
+    int pre[MAXV]; // pre[v]表示从起点到顶点v的最短路径上v的前一个顶点
+    bool vis[MAXV] = {false};   // 标记数组
+
+    void Dijkstra(int s)            // s为起点
+    {
+        fill(d, d+MAXV, INF);       // fill函数将整个数组d赋值为INF
+        for(int i = 0; i < n; i++) pre[i] = i;  // 初始状态每个点的前驱为自身
+        d[s] = 0;                             // 起点s到达自身的距离为0
+        for(int i = 0; i < n; i++)
+        {
+            int u = -1, MIN = INF;   //  u使d[u]最小，MIN存放最小的d[u]
+            for(int j = 0; j < n; j++)
+            {
+                if(vis[j] == false && d[j] < MIN)
+                {
+                    u = j;
+                    MIN = d[j];
+                }
+            }
+            // 找不到小于INF的d[u]，说明剩下的顶点和起点s不连通
+            if(u == -1) return;
+            vis[u] = true;      // 标记u为己访问
+            for(int v = 0; v < n; i++)
+            {
+                // 如果v未访问 && u能到达v && 以u为中介点可以使d[v]更优
+                if(vis[v] == false && G[u][v] != INF && d[u] + G[u][v] < d[v])
+                {
+                    d[v] = d[u] + G[u][v];
+                    pre[v] = u;         // 记录v的前驱顶点是u
+                }
+            }
+        }
+    }
+```
+
+在最短路径的基础上，可能还会出现另一维度的标尺，例如：
+
+1. 给每条边再增加一个边权（如花费），然后要求在最短路径有多条时要求路径上的花费之和最小；
+
+2. 给每个点增加一个点权，然后要求在最短路径有多条时要求路径上的点权之和最大。
+
+3. 直接问有多少条最短路径
+
+对这三种出题方法，都只需要增加一个数组来存放新增的边权或点权或最短路径条数，然后在Dijkstra算法中修改优化d[v]的那个步骤即可，其他部分不需要改动。
+
+1. 新增边权
+
+    ```C++
+        for(int v = 0; v < n; v++)
+        {
+            // 如果v未访问&&u能到达v
+            if(vis[v] == false && G[u][v] != INF)
+            {
+                if(d[u] + G[u][v] < d[v])
+                {
+                    // 以u为中介点可以使d[v]更优
+                    d[v] = d[u] + G[u][v];
+                    c[v] = c[u] + cost[u][v];
+                }
+                else if(d[u] + G[u][v] == d[v] && c[u] + cost[u][v] < c[v])
+                {
+                    c[v] = c[u] + cost[u][v];   // 最短距离相同时看能否使c[v]更优
+                }
+            }
+        }
+    ```
+
+2. 新增点权
+
+    ```C++
+        for(int v = 0; v < n; v++)
+        {
+            // 如果v未访问&&u能到达v
+            if(vis[v] == false && G[u][v] != INF)
+            {
+                if(d[u] + G[u][v] < d[v])
+                {
+                    // 以u为中介点可以使d[v]更优
+                    d[v] = d[u] + G[u][v];
+                    w[v] = w[u] + weight[v];
+                }
+                else if(d[u] + G[u][v] == d[v] && w[u] + weight[v] > w[v])
+                {
+                    w[v] = w[u] + weight[v];   // 最短距离相同时看能否使w[v]更优
+                }
+            }
+        }
+    ```
+
+3. 求最短路径条数
+
+    ```C++
+        for(int v = 0; v < n; v++)
+        {
+            // 如果v未访问&&u能到达v
+            if(vis[v] == false && G[u][v] != INF)
+            {
+                if(d[u] + G[u][v] < d[v])
+                {
+                    // 以u为中介点可以使d[v]更优
+                    d[v] = d[u] + G[u][v];
+                    num[v] = num[u];
+                }
+                else if(d[u] + G[u][v] == d[v] )
+                {
+                    num[v] += num[u];   // 最短距离相同时累加num
+                }
+            }
+        }
+    ```
