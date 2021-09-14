@@ -312,3 +312,137 @@
 ### 10.4.1 Dijkstra算法
 
 Dijkstra算法用来解决单源最短路径问题，即给定图G和起点s，通过算法得到S到达其他每个顶点的最短距离。
+
+Dijkstra算法的策略描述：设置集合S存放已被访问的顶点，然后执行n次下面的两个步骤（n为顶点个数）：
+
+    1. 每次从集合V-S中选择与起点s的最短距离最小的一个顶点（记为u），访问并加入集合S。
+
+    2. 之后，令顶点u为中介点，优化起点s与所有从u能到达的顶点v之间的最短距离。
+
+Dijkstra算法的具体实现：实现过程主要包括集合S的实现、起点s到达顶点Vi的最短距离的实现：
+
+    1. 集合S可以用一个bool型数组vis[]来实现，当vis[i]为true时表示顶点Vi已经被访问；
+
+    2. 令int型数组d[]表示起点s到达顶点Vi的最短距离，初始时除了起点s的d[s]赋值为0，其余顶点都赋为一个极大值。
+
+Dijkstra算法的伪代码实现：
+
+```C++
+    // G为图，一般设为全局变量；数组d为源点到达各点的最短路径长度，s为起点
+    Dijkstra(G, d[], s)
+    {
+        初始化;
+        for(循环n次)
+        {
+            u = 使d[u]最小的还未被访问的顶点的标号;
+            记u已被访问;
+            for(从u出发能到达的所有顶点v)
+            {
+                if(u未被访问&&以u为中介点使s到顶点v的最短距离d[v]更优)
+                {
+                    优化d[v];
+                }
+            }
+        }
+    }
+```
+
+由于图可以使用邻接矩阵或者邻接表来实现，因此也就会有两种写法，但是这两种写法都是以上面的伪代码为基础的，区别主要集中在枚举从u出发能到达的顶点v上面：邻接矩阵需要枚举所有顶点来查看v是否可由u到达；邻接表则可以直接得到u能到达的顶点v。
+
+在写出具体函数之前，需要先定义MAXV为最大顶点数、INF为一个很大的数字：
+
+```C++
+    const int MAXV = 1000;          // 最大顶点数
+    const int INF = 100000000;  // 设INF为一个很大的数
+```
+
+1. 邻接矩阵法：
+
+    适用于点数不大的情况，相对较好写。
+
+    ```C++
+        int n, G[MAXV][MAXV];           // n为顶点数，MAXV为最大顶点数
+        int d[MAXV];                            // 起点到达各点的最短路径长度
+        bool vis[MAXV] = {false};   // 标记数组
+
+        void Dijkstra(int s)            // s为起点
+        {
+            fill(d, d+MAXV, INF);       // fill函数将整个数组d赋值为INF
+            d[s] = 0;                               // 起点s到达自身的距离为0
+            for(int i = 0; i < n; i++)
+            {
+                int u = -1, MIN = INF;      //  u使d[u]最小，MIN存放最小的d[u]
+                for(int j = 0; j < n; j++)
+                {
+                    if(vis[j] == false && d[j] < MIN)
+                    {
+                        u = j;
+                        MIN = d[j];
+                    }
+                }
+                // 找不到小于INF的d[u]，说明剩下的顶点和起点s不连通
+                if(u == -1) return;
+                vis[u] = true;      // 标记u为己访问
+                for(int v = 0; v < n; i++)
+                {
+                    // 如果v未访问 && u能到达v && 以u为中介点可以使d[v]更优
+                    if(vis[v] == false && G[u][v] != INF && d[u] + G[u][v] < d[v])
+                    {
+                        d[v] = d[u] + G[u][v];
+                    }
+                }
+            }
+        }
+    ```
+
+    从复杂度来看，主要是外层循环O(V)（V就是顶点个数n）与内层循环（寻找最小的d[u]需要O(V)、枚举v需要O(V)）产生的，总复杂度为O(V* (V+V)) = O(V2)。
+
+2. 邻接表版：
+
+    ```C++
+        struct Node{
+            int v, dis;         // v为边的目标顶点，dis为边权
+        };
+
+        vector<Node> Adj[MAXV];     // 图G，Adj[u]存放从顶点u出发可以到达的所有顶点
+        int n;                  // n为顶点数，图G使用邻接表实现，MAXV为最大顶点数
+        int d[MAXV];    // 起点到达各点的最短路径长度
+        bool vis[MAXV] = {false};   // 标记数组
+
+        void Diskstra(int s)
+        {
+            fill(d, d + MAXV, INF);
+            d[s] = 0;           // 起点s到达自身的距离为0
+            for(int i = 0; i < n; i++)
+            {
+                int u = -1, MIN = INF;
+                for(int j = 0; j < n; j++)
+                {
+                    if(vis[j] == false && d[j] < MIN)
+                    {
+                        u = j;
+                        MIN = d[j];
+                    }
+                }
+
+                // 找不到小于INF的d[u]，说明剩下的顶点和起点s不连通
+                if(u == -1) return;
+                vis[u] = true;      // 标记u为己访问
+
+                // 只有下述for循环与邻接矩阵版不同
+                for(int j = 0; j < Adj[u].size(); j++)
+                {
+                    int v = Adj[u][j].v;        // 通过邻接表直接获得u能到达的顶点v
+                    if(vis[v] == false && d[u] + Adj[u][j].dis < d[v])
+                    {
+                        d[v] = d[u] + Adj[u][j].dis;
+                    }
+                }
+            }
+        }
+    ```
+
+    从复杂度来看，主要是外层循环O(V)与内层循环（寻找最小的d[u]需要O(V)、枚举v需要O(adj[u].size)) 产生的。又由于对整个程序来说，枚举v的次数总共为O(adj[u].size求和)= O(E)，因此总复杂度为O(V2 + E)。
+
+Diskstra算法只能应对所有边权都是非负数的情况，如果边权出现负数，那么该算法可能会出错，这是最好适用SPFA算法。
+
