@@ -571,3 +571,85 @@ Diskstra算法只能应对所有边权都是非负数的情况，如果边权出
             }
         }
     ```
+
+这里介绍一种更通用、又模板化的解决此类问题的方式——**Dijkstra + DFS**。
+
+回顾上面只使用Dijkstra算法的思路，会发现，算法中数组pre总是保持着最优路径，而这显然需要在执行Dijkstra算法的过程中使用严谨的思路来确定何时更新每个结点v的前驱结点pre[v]，实在容易出错。事实上更简单的方法是：先在Dijkstra算法中记录下所有最短路径（只考虑距离），然后从这些最短路径中选出一条第二标尺最优的路径（因为在给定一条路径的情况下，针对这条路径的信息都可以通过边权和点权很容易计算出来！）。
+
+1. 使用Dijkstra算法记录所有最短路径。
+
+    ```C++
+        vector<int> pre[MAXV];
+        void Dijkstra(int s)
+        {
+            fill(d, d+MAXV, INF);
+            d[s] = 0;
+            for(int i = 0; i < n; i++)  // 找到最小的d[u]
+            {
+                int u = -1, MIN = INF;
+                if(vis[j] == false && d[j] < MIN)
+                {
+                    u = j;
+                    MIN = d[j];
+                }
+            }
+            if(u == -1) return;
+            vis[u] = true;
+            for(int v = 0; v < n; v++)
+            {
+                if(vis[v] == false && G[u][v] != INF)
+                {
+                    if(d[u] + G[u][v] < d[v])
+                    {
+                        d[v] = d[u] + G[u][v];
+                        pre[v].clear();
+                        pre[v].push_back(u);
+                    }
+                    else if(d[u] + G[u][v] == d[v])
+                    {
+                        pre[v].push_back(u);
+                    }
+                }
+            }
+        }
+    ```
+
+2. 遍历所有最短路径， 出一条使第二标尺最优的路径。
+
+    计算第二标尺的最优值，必须要有：
+
+    - 作为全局变量的第二标尺最优值optValue。
+    - 记录最优路径的数组path（使用vector来存储）。
+    - 临时记录DFS遍历到叶子结点时的路径tempPath（也使用vector存储）。
+
+    ```C++
+        int optvalue;           // 第二标尺最优值
+        vector<int> pre[MAXV];      // 存放结点的前驱结点
+        vector<int> path, tempPath; // 最优路径、临时路径
+        void DFS(int v)
+        {
+            // 递归边界
+            if(v == st)
+            {
+                // 如果到达了叶子结点st （即路径的起点）
+                tempPath.push_back(v)
+                int value;
+                // 计算路径tempPath上的value值
+                if(value 优于 optvalue)
+                {
+                    optvalue = value;
+                    path = tempPath;
+                }
+                tempPath.pop_back();
+                return;
+            }
+            // 递归式
+            tempPath.push_back(v);      // 将当前访问结点加入临时路径tempPath的最后面
+            for(int i = 0; i < pre[v].size(); i++)
+            {
+                DFS(pre[v][i]);
+            }
+            tempPath.pop_back();
+        }
+    ```
+
