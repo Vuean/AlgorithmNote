@@ -653,3 +653,96 @@ Diskstra算法只能应对所有边权都是非负数的情况，如果边权出
         }
     ```
 
+### 10.4.2 Bellman-Ford算法和SPFA算法
+
+Bellman-Ford算法可解决单源最短路径问题，但也能处理有负权边的情况。与Dijkstra算法相同，Bellman-Ford算法设置一个数组d，用来存放从源点到达各个顶点的最短距离。同时Bellman-Ford算法返回一个bool值：如果其中存在从源点可达的负环，那么函数将返回false；否则，函数将返回true，此时数组d中存放的值就是从源点到达各顶点的最短距离。
+
+Bellman-Ford算法的主要思路如下述伪代码所示。
+
+```C++
+    for(i = 0; i < n-1; i++)    // 执行n-1轮操作，其中n为顶点数
+    {
+        for(each eage u->v)     // 每轮操作都遍历所有边
+        {
+            if(d[u] + length[u->v] < d[v])  // 以u为中介点可以使d[v]更小
+            {
+                d[v] = d[u] + length[u->v]; // 松弛操作
+            }
+        }
+    }
+```
+
+### 10.4.3 Floyd算法
+
+Floyd算法用来解决全源最短路问题，即对给定的图G(V,E)，求任意两点U，V之间的最短路径长度，时间复杂度是O(n3)。由于n3的复杂度决定了顶点数n的限制约在200以内，因此使用邻接矩阵来实现Floyd算法是非常合适且方便的。
+
+```C++
+    #include <cstdio>
+    #include <string>
+    #include <algorithm>
+    using namespace std;
+    const int MAXV = 200;
+    const int INF = 100000000000000;
+    int n, m;
+    int dis[MAXV][MAXV];        // dis[i][j]表示顶点i和j的最短距离
+
+    void Floyd(){
+        for(int k = 0; k < n; k++)
+        {
+            for(int i = 0; i < n; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                    if(dis[i][k] != INF && dis[k][j] != INF && dis[i][k] + dis[k][j] < dis[i][j])
+                    {
+                        dis[i][j] = dis[i][k] + dis[k][j];
+                    }
+                }
+            }
+        }
+    }
+
+    int main()
+    {
+        int u, v, w;
+        fill(dis[0], dis[0]+MAXV*MAXV, INF);
+        scanf_s("%d%d", &n, &m);
+        for(int i = 0; i < n; i++)
+        {
+            dis[i][j] = 0;
+        }
+
+        for(int i = 0; i < m; i++)
+        {
+            scnaf_s("%d%d%d", &u, &v, &w);
+            dis[u][v] = w;
+        }
+        Floyd();
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                printf("%d", dis[i][j]);
+            }
+            printf("/n");
+        }
+    }
+```
+
+## 10.5 最小生成树
+
+### 10.5.1 最小生成树及其性质
+
+最小生成树(Minimum Spanning Tree, MST)是在一个给定的无向图G(V,E)中求一棵树T，使得这棵树拥有图G中的所有顶点，且所有边都是来自图G中的边，并且满足整棵树的边权之和最小。
+
+最小生成树有3个性质需要掌握：
+
+- 最小生成树是树，因此其边数等于顶点数减1，且书内一定不会有环。
+
+- 对给定的图G(V,E)，其最小生成树可以不唯一，但其边权之和一定是唯一的。
+
+- 由于最小生成树是在无向图上生成的，因此其根结点可以是这棵树上的任意一个结点。
+
+### 10.5.2 prim算法
+
+Prim算法用来解决最小生成树问题，其基本思想是对图G(V,E)设置集合S，存放已被访问的顶点，然后每次从集合V-S中选择与集合S的最短距离最小的一个顶点（记为u），访问并加入集合S。之后，令顶点u为中介点，优化所有从u能到达的顶点v与集合S之间的最短距离。这样的操作执行n次（n为顶点个数），直到集合S已包含所有顶点 。
