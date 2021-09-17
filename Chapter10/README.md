@@ -746,3 +746,128 @@ Floyd算法用来解决全源最短路问题，即对给定的图G(V,E)，求任
 ### 10.5.2 prim算法
 
 Prim算法用来解决最小生成树问题，其基本思想是对图G(V,E)设置集合S，存放已被访问的顶点，然后每次从集合V-S中选择与集合S的最短距离最小的一个顶点（记为u），访问并加入集合S。之后，令顶点u为中介点，优化所有从u能到达的顶点v与集合S之间的最短距离。这样的操作执行n次（n为顶点个数），直到集合S已包含所有顶点 。
+
+prim算法的基本思想是对图G(V, E)设置集合S来存放已被访问的顶点，然后执行n次下面的两个步骤（n为顶点个数）：
+
+1. 每次从集合V-S（即未攻占的城市）中选择与集合S最近的一个顶点（记为u），访问u并将其加入集合S，同时把这条离集合S最近的边加入最小生成树中。
+
+2. 令顶点u作为集合S与集合V-S连接的接口，优化从u能到达的未访问顶点v与集合S的最短距离。
+
+prim算法需要实现两个关键的概念，即集合S的实现、顶点vi(O≤i≤n-1)与集合S的最短距离。
+
+prim算法的伪代码实现：
+
+```C++
+    // G为图，一般设成全局变量数；数组d为顶点与集合S的最短距离
+    prim(G, d[])
+    {
+        初始化；
+        for(循环n次)
+        {
+            u = 使d[u]最小的还未被访问的顶点的标号;
+            记u已被访问;
+            for(从u出发能到达的所有顶点v)
+            {
+                if(v未被访问&&以u未中介点使得v与集合S的最短距离d[v]更优)
+                {
+                    将G[u][v]赋值给v与集合S的最短距离d[v];
+                }
+            }
+        }
+    }
+```
+
+1. 邻接矩阵版实现：
+
+```C++
+    int n, G[MAXV][MAXV];   // n为顶点数，MAXV为最大顶点数
+    int d[MAXV];                   // 顶点与集合S的最短距离
+    bool vis[MAXV] = {false};   // 标记数组
+
+    iniprim()  // 默认0号未初始点，函数返回最小生成树和边权之和
+    {
+        fill(d, d+MAXV, INF);
+        d[0] = 0;
+        int ans = 0;
+        for(int i = 0; i < n; i++)
+        {
+            int u = -1, MIN = INF;
+            for(int j = 0; j < n; j++)
+            {
+                if(vis[j] == false && d[j] < MIN)
+                {
+                    u = j;
+                    MIN = d[j];
+                }
+            }
+
+            // 找不到小于INF的d[u]，说明剩下的顶点和起点s不连通
+            if(u == -1) return;
+            vis[u] = true;      // 标记u为己访问
+            ans += d[u];
+            for(int v = 0; v < n; v++)
+            {
+                // 如果v未访问&&u能到达v&&以u为中介点可以使v离集合S更近
+                if(vis[v] == false && G[u][v] != INF && G[u][v] < d[v])
+                {
+                    d[v] = G[u][v];
+                }
+            }
+        }
+        return ans;
+    }
+```
+
+2. 邻接表版实现：
+
+```C++
+    struct Node{
+        int v, dis;
+    };
+
+    vector<Node> Adj[MAXV];     // 图G，Adj[u]存放从顶点u出发可以到达的所有顶点
+    int n;                  // n为顶点数，
+    int d[MAXV];
+    bool vis[MAXV] = {false};   // 标记数组
+
+    intprim() // 默认0号未初始点，函数返回最小生成树和边权之和
+    {
+        fill(d, d+MAXV, INF);
+        d[0] = 0;
+        int ans = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            int u = -1, MIN = INF;
+            for(int j = 0; j < n; j++)
+            {
+                if(vis[j] == false && d[j] < MIN)
+                {
+                    u = j;
+                    MIN = d[j];
+                }
+            }
+
+            // 找不到小于INF的d[u]，说明剩下的顶点和起点s不连通
+            if(u == -1) return;
+            vis[u] = true;      // 标记u为己访问
+            ans += d[u];
+
+            // 只有下面这个for与邻接矩阵的写法不同
+            for(int j= 0; j < Adj[u].size(); j++)
+            {
+                int v = Adj[u][j].v;
+                if(vis[v] == false && Adj[u][j].dis < d[v])
+                {
+                    d[v] = G[u][v];
+                }
+            }
+        }
+        return ans;
+    }
+```
+
+### 10.5.3 Keusal算法
+
+kruskal算法同样是解决最小生成树问题的一个算法。和prim算法不同，kruskal算法采用了边贪心的策略，其思想极其简洁，理解难度比prim算法要低很多。
+
