@@ -20,4 +20,10 @@
 
 [第九章 提高篇(3)——数据结构专题(2)](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter09/README.md)
 
-[第十章 提高篇(4)——图算法专题](hhttps://github.com/Vuean/AlgorithmNote/tree/main/Chapter10/README.md)
+[第十章 提高篇(4)——图算法专题](https://github.com/Vuean/AlgorithmNote/tree/main/Chapter10/README.md)
+
+[第十一章 提高篇(5)——动态规划专题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter11/README.md)
+
+[第十二章 提高篇(6)——字符串专题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter11/README.md)
+
+[第十三章 专题扩展](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter11/README.md)
