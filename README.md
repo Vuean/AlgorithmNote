@@ -24,6 +24,6 @@
 
 [第十一章 提高篇(5)——动态规划专题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter11/README.md)
 
-[第十二章 提高篇(6)——字符串专题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter11/README.md)
+[第十二章 提高篇(6)——字符串专题](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter12/README.md)
 
-[第十三章 专题扩展](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter11/README.md)
+[第十三章 专题扩展](https://github.com/Vuean/AlgorithmNote/blob/main/Chapter13/README.md)
